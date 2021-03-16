@@ -80,7 +80,11 @@ a:clicked {
   margin-top: 50%;
 }
 
-.about {
+.space {
+  margin-top: 8%;
+}
+
+.section {
   padding: 3em;
   position: relative;
 }
@@ -91,11 +95,18 @@ a:clicked {
   font-weight: bold;
   margin-bottom: 20px;
   text-transform: lowercase;
-  /* margin-left: 1.5rem; */
 }
 
 .hs {
   width: 80%;
-  margin-top: 15%;
   margin-left: 5%;
+}
+
+.thumb {
+  width: 90%;
+  margin-bottom: 1em;
+}
+
+.proj:hover {
+  opacity: 0.6;
 }
