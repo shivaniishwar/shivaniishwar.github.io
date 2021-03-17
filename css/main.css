@@ -83,7 +83,7 @@ a:clicked {
 }
 
 .space {
-  margin-top: 8%;
+  margin-top: 5%;
 }
 
 .section {
@@ -111,6 +111,35 @@ a:clicked {
 
 .proj:hover {
   opacity: 0.6;
+}
+
+.subtitle {
+  color: #cd428d;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.skill {
+  background: rgba(205,66,141,0.5);
+  padding-left: 1.5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+}
+
+.dot {
+  height: 1.5em;
+  width: 1.5em;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.filled {
+  background-color: #cd428d;
+}
+
+.unfilled {
+  background-color: rgba(205,66,141,0.3);
 }
 
 .end {
