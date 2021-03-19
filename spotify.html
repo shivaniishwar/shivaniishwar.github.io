@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Shivani Ishwar</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="images/favicon.png"/>
+    <!--styling-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md fixed-top">
+      <a class="navbar-title" href="#">SHIVANI ISHWAR</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainnav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainnav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/index.html">back to homepage</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="pg container-fluid">
+      <div class="pgtitle">
+        <h1>Music My Way</h1>
+        <h3><strong>a data-driven exploration of my personal Spotify habits</strong></h3>
+        <img src="/images/spotify/title.png" class="ss">
+        <p class="stitle">Introduction</p>
+        <p>Spotify has become known across the Internet for providing personalized data on users' listening history, from recommendations of new music to a yearly review of most-loved music. Given the robustness of the data Spotify collects, I decided to take a closer look to see if I could draw any further insights out of my own listening habits.</p>
+        <p class="stitle">Methodology</p>
+        <p>Spotify's <a href="https://developer.spotify.com/console/get-current-user-saved-tracks/">developer tools</a> were used to download data to a JSON file; this data encompasses new songs added to my "Liked Songs" playlist, showing which new music I chose to save for future listening. The raw data can be downloaded <a href="/files/spotify_raw.json" download>here</a></p>
+        <p>I then used OpenRefine in order to modify the dataset.</p>
+        <ol>
+          <li>
+            <h7>Basic Cleaning</h7>
+            <p class="plain">I started the cleaning process by limiting the data collected to a fixed period of time: June 1st through December 31st, 2019. This resulted in a dataset with 575 total records spread across 7 months. Columns were also renamed for ease of comprehension, and to remove extraneous symbols that were present in the original data. Finally, extraneous and irrelevant columns were removed.</p>
+          </li>
+          <li>
+            <h7>Reshaping</h7>
+            <p class="plain">There were a few issues that needed to be addressed in the shaping of the data. Primarily, there were a number of rows of data corresponding to each song. This was due to the presence of multiple artists on certain songs, as well as multiple image files for the album artwork.</p>
+            <p class="plain">In order to combat this problem, I limited the number of artists per track to 3. Extra artists, present on 23 out of the 575 total songs, were dropped. I then transposed the columns for album artwork and artists into three distinct columns each. This left me with data that had one row for each song.</p>
+          </li>
+          <li>
+            <h7>Enriching</h7>
+            <p class="plain">Amazon Music was used to categorize songs into genres, adding another dimension to the available data. I also created a column to note down whether songs were purely instrumental or had vocals and lyrics. Additionally, I was curious about how many times I downloaded an album in full, versus just downloading one or a few tracks from it. To gain insight into this, I compared the number of tracks I'd downloaded from the same album name to the total number of tracks in the album, available through the original dataset.</p>
+          </li>
+        </ol>
+        <p>After these processes were completed, the clean data was exported as a CSV file and loaded into Tableau for visualization. I chose to use genre as a separator across all my visualizations, and assigned each category a color so that they could easily be identified on each graph. I also aimed to use as much of the data as I could; in addition to aggregated views of how many songs fit into certain categories, I created an explorable interface that allows the viewer to see data on individual songs.</p>
+        <img src="/images/spotify/time.png" class="ss" style="width: 80%;">
+        <p>In order to create this view, the data was disaggregated and compiled into a stacked bar chart, with each distinct stripe corresponding to a single song. As the viewer explores the visualization, they are able to learn the song name, artist name, genre, the day I added it to my Spotify account, and most interestingly, an image of the album artwork. The last feature was added using a webpage widget in Tableau, using the URL for each album's artwork to generate the image.</p>
+        <p class="stitle">Findings</p>
+        <p>Highlighted findings include:</p>
+        <ol>
+          <li>
+            <h7>Overall Features</h7>
+            <p class="plain">The majority of music that I downloaded during this period was not explicit, and contained lyrics or vocals, as opposed to being fully instrumental.</p>
+            <img src="/images/spotify/features.png" class="ss" style="width: 40%;">
+          </li>
+          <li>
+            <h7>Genre</h7>
+            <p class="plain">Out of seven total genre categories, I downloaded the most songs from the "Show Tunes/Soundtracks" category and the fewest songs falling under the "Classical" genre. Interestingly, I was more likely to download a whole album for "Show Tunes/Soundtracks," while I was more likely to download a partial album in the "Indie" and "Pop" genres.</p>
+            <img src="/images/spotify/whole.png" class="ss" style="width: 40%;">
+          </li>
+        </ol>
+        <p class="stitle">Conclusions</p>
+        <p>This project can be reproduced using other Spotify users' listening habits, and could also be used to aggregate data about multiple users. Future work on this project might involve assessing other time periods, or conducting a deeper analysis of typical song features in specific genres of music.</p>
+        <p>This project gave me useful experience in API usage, OpenRefine, and Tableau. Particularly, the customized areas of the visualization allowed me to experiment with integrating custom features into readymade designs.</p>
+        <p>The final deliverables, in the form of a Tableau story, can be viewed below.</p>
+        <div class='tableauPlaceholder' id='viz1616192798073' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TT&#47;TTDT2NWK8&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='path' value='shared&#47;TTDT2NWK8' /> <param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TT&#47;TTDT2NWK8&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1616192798073');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+        <p></p>
+        <p class="stitle">References</p>
+        <p>Amazon. "Amazon.com: Digital Music." Retrieved from <a href="https://www.amazon.com/MP3-Music-Download/b/?ie=UTF8&node=163856011&ref_=sv_dmusic_5" class="sl">https://www.amazon.com/MP3-Music-Download/b/?ie=UTF8&node=163856011&ref_=sv_dmusic_5</a>.</p>
+        <p>Spotify for Developers. "Get a User's Saved Tracks." Retrieved from <a href="https://developer.spotify.com/documentation/web-api/reference/library/get-users-saved-tracks/" class="sl">https://developer.spotify.com/documentation/web-api/reference/library/get-users-saved-tracks/</a>.</p>
+        <p>Spotify for Developers. "Get Current User's Saved Tracks." Retrieved from <a href="https://developer.spotify.com/console/get-current-user-saved-tracks/" class="sl">https://developer.spotify.com/console/get-current-user-saved-tracks/</a>.</p>
+        <h1 class="space"></h1>
+      </div>
+    </div>
+    <footer class="end">
+      <div class="text-right endtxt">Shivani Ishwar — 2021</div>
+    </footer>
+    <!--script-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  </body>
+</html>
