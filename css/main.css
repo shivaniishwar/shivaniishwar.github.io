@@ -196,4 +196,8 @@ ol li {
   .pg {
     width: 90%;
   }
+
+  img {
+    width: 100% !important;
+  }
 }
