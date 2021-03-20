@@ -12,7 +12,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-md fixed-top">
-      <a class="navbar-title" href="#"><strong>SHIVANI ISHWAR</strong></a>
+      <a class="navbar-title" href="/index.html">SHIVANI ISHWAR</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainnav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -24,6 +24,75 @@
         </ul>
       </div>
     </nav>
+    <div class="pg container-fluid">
+      <div class="pgtitle">
+        <h1 class="space"></h1>
+        <h1>The Speech of <em>Star Wars</em></h1>
+        <h3><strong>a text analysis of the original trilogy</strong></h3>
+        <img src="/images/starwars/sent_norm.png" class="ss">
+        <p class="stitle">Introduction</p>
+        <p>One of the most iconic choices that the <em>Star Wars</em> franchise made was to include the peculiar speech patterns of Yoda, one of Luke Skywalker's mentors in the ways of the Force. In this project, I aim to explore the subtler speech patterns that distinguish other characters' lines, using text analysis methods available in the programming language R.</p>
+        <p>Similar text analysis stories of pop culture have been undertaken before, including these analyses of <a href="https://www.jennadallen.com/post/text-analytics-every-line-from-the-office/">T​he Office​</a>, <a href="https://suzan.rbind.io/2018/02/happy-galentines-day/">P​arks and Recreation</a>,​ and <a href="https://blogs.elon.edu/com329/2019/03/01/sentiment-analysis-of-every-mystery-novel-on-gutenberg-org/">​mystery novels</a>.​</p>
+        <p class="stitle">Methodology</p>
+        <p>This project uses a dataset that includes all spoken lines in the original <em>Star Wars</em> trilogy, which I downloaded from <a href="https://www.kaggle.com/xvivancos/star-wars-movie-scripts">Kaggle</a>. Initial examination revealed that the data didn't include the full scripts, so factors like setting or directorial notes could not be included in this analysis.</p>
+        <p>Instead, I focused primarily on discovering any unique characteristics of major speaking characters. I investigated sentiment analysis, word frequency analysis, and topic modeling in order to illustrate differences between the characters' tendencies.</p>
+        <ol>
+          <li>
+            <h7>Sentiment Analysis</h7>
+            <p class="plain">I used a two-step process to analyze sentiment in the dialogue. First, I used the <a href="https://nrc.canada.ca/en/research-development/products-services/technical-advisory-services/sentiment-emotion-lexicons">NRC Word-Emotion Association Lexicon</a> to filter words into different categories, like “joy,” “trust,” “sadness,” and “anger,” allowing me to see how many words fit in each emotional category. Then I used the <a href="http://corpustext.com/reference/sentiment_afinn.html">AFINN Sentiment Lexicon</a> to give each word a weighted “score”: higher points for more positive words, and lower points for more negative words.</p>
+            <p class="plain">I used this method to analyze the entire <em>Star Wars</em> scripts, and then to analyze dialogue from specific characters. For the individual characters, I normalized the scores based on the total number of words spoken, creating an average sentiment across the characters' dialogue.</p>
+          </li>
+          <li>
+            <h7>Word Frequency Analysis</h7>
+            <p class="plain">In order to get meaningful results from this analysis, I eliminated common words—like “a,” “the,” “we,” and “it,” among many others—from the dataset. Then I used R to find the most commonly-used words by each of the major characters I identified.</p>
+          </li>
+          <li>
+            <h7>Topic Modeling</h7>
+            <p class="plain">Using the same cleaned text, I used R to find "topics" within the remaining dialogue. This method allowed me to see which words were most likely to appear together in the same phrase or sentence, which could then be interpreted into broad "topics."</p>
+          </li>
+          <li>
+            <h7>Visualizations</h7>
+            <p class="plain">While the main focus of this project was the text analysis itself, it did help to display some of the results visually. I used bar charts to display the results of the sentiment analysis and topic modeling; I used word clouds to visualize the word frequency analysis.</p>
+          </li>
+        </ol>
+        <p>The code used to conduct this analysis was written in R; it can be downloaded <a href="/files/starwars_code.R">here</a>.</p>
+        <p class="stitle">Findings</p>
+        <p>Highlighted findings include:</p>
+        <ol>
+          <li>
+            <h7>Overview</h7>
+            <p class="plain">In total, the three <em>Star Wars</em> movies contain 2,523 lines of dialogue, with a total of 25,938 words. Out of those, the NRC analysis categorized a total of 319 words as positive and 173 as negative. Including repeats of the same word, positive words appeared 1,401 times, and negative words appeared 1,121 times.</p>
+            <p class="plain">The AFINN analysis assigned a score between -5 and +5 to words in order to convey their positive or negative meanings. This method gave <em>Star Wars</em> an overall sentiment score of 112, for an average of 0.004 per spoken word.</p>
+            <p class="plain">Finally, topic modeling reveals a few different themes across <em>Star Wars</em>; unsurprisingly, as the main character, Luke Skywalker appears in two of the four word groupings. Additionally, one of the groups seems devoted to the dark side of the Force, with words like "Vader" and "star" (presumably for the Death Star).</p>
+            <img src="/images/starwars/sw_lda.png" class="ss" style="width: 50%;">
+          </li>
+          <li>
+            <h7>Character Dialogue</h7>
+            <p class="plain">There were a total of seven characters who had over 100 lines of dialogue across all three movies: Luke Skywalker, Han Solo, Leia Organa, Darth Vader, Obi-Wan Kenobi, C-3PO, and Lando Calrissian. Interestingly, Leia is the only female character to make it into this analysis.</p>
+            <p class="plain">In analyzing the sentiment of each character's dialogue, Han Solo has the most positive sentiment score (an average of 0.032 per word), while Darth Vader has the most negative score (-0.009 per word). Han isn't a particularly optimistic character, but he uses sarcasm liberally, which may account for his high score.</p>
+            <img src="/images/starwars/sent_norm.png" class="ss" style="width: 70%;">
+            <p class="plain">Word frequency analysis yields some interesting results, including the characters most likely to speak to or about each other. For example, "father" and "Artoo" appear fairly large in Luke's word cloud, while "Chewie" is the most common for Han.</p>
+            <img src="/images/starwars/word_comp.png" class="ss" style="width: 80%;">
+            <p class="plain">Looking at the word groupings created by topic modeling analysis gives us insight into what our characters are most likely to discuss. Looking at which words are grouped together allows us to see that Luke and Han both dedicate much of their dialogue to friends or family, while Leia's most repeated words are from her recorded message—"Help me, Obi-Wan Kenobi. You're my only hope."</p>
+            <img src="/images/starwars/lda_comp.png" class="ss" style="width: 100%;">
+          </li>
+        </ol>
+        <p class="stitle">Conclusions</p>
+        <p>Discovering the deeply-embedded trends within the language of the original <em>​Star Wars</em> movies can help us discover just what has drawn generations of fans to the space epic. In addition to being able to replicate that success in future entertainment, we can find deeper truths about what inspires, impassions, and moves us as human beings.</p>
+        <p>Future analysis might explore what the rest of the ​<em>Star Wars</em> ​franchise has to offer: analyzing the speech patterns from novelizations, extended-universe comics, movies, TV shows, as well as the prequel or sequel movies.</p>
+        <p>The final deliverable for this project, an analytical report, can be downloaded <a href="/files/starwars_report.pdf" download>here</a>.
+        <p class="stitle">References</p>
+        <p>Allen, J. "Text Mining: Every Line from The Office." Retrieved from <a href="https://www.jennadallen.com/post/text-analytics-every-line-from-the-office/" class="sl">https://www.jennadallen.com/post/text-analytics-every-line-from-the-office/</a>.</p>
+        <p>Baert, S. "Happy Galentine's Day!"" Retrieved from <a href="https://suzan.rbind.io/2018/02/happy-galentines-day" class="sl">​https://suzan.rbind.io/2018/02/happy-galentines-day/</a>​.</p>
+        <p>Corpus. "AFINN Sentiment Lexicon." Retrieved from <a href="http://corpustext.com/reference/sentiment_afinn.html" class="sl">http://corpustext.com/reference/sentiment_afinn.html</a>.</p>
+        <p>"Cultural impact of Star Wars." Retrieved from ​<a href="https://en.wikipedia.org/wiki/Cultural_impact_of_Star_Wars" class="sl">https://en.wikipedia.org/wiki/Cultural_impact_of_Star_Wars</a>.</p>
+        <p>Government of Canada. "Sentiment and Emotion Lexicons." Retrieved from <a href="https://nrc.canada.ca/en/research-development/products-services/technical-advisory-services/sentiment-emotion-lexicons" class="sl">https://nrc.canada.ca/en/research-development/products-services/technical-advisory-services/sentiment-emotion-lexicons</a>.</p>
+        <p>R Project. "What is R?" Retrieved from <a href="https://www.r-project.org/about.html" class="sl">https://www.r-project.org/about.html</a>.</p>
+        <p>Walsh, B. "Sentiment Analysis of Every Mystery Novel on Gutenberg.org." Retrieved from <a href="https://blogs.elon.edu/com329/2019/03/01/sentiment-analysis-of-every-mystery-novel-on-gutenberg-org/" class="sl">​https://blogs.elon.edu/com329/2019/03/01/sentiment-analysis-of-every-mystery-novel-on-gutenberg-org/</a>.​</p>
+        <p>Xavier, V. "Star Wars Movie Scripts." Retrieved from <a href=​"https://www.kaggle.com/xvivancos/star-wars-movie-scripts" class="sl">https://www.kaggle.com/xvivancos/star-wars-movie-scripts</a>.​</p>
+        <h1 class="space"></h1>
+      </div>
+    </div>
     <footer class="end">
       <div class="text-right endtxt">Shivani Ishwar — 2021</div>
     </footer>
