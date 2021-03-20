@@ -189,6 +189,10 @@ ol li {
 }
 
 @media screen and (max-width: 768px) {
+  .navbar {
+    position: static;
+  }
+
   .hd {
     width: 100%;
   }
