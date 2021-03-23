@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Queer in the Eyes of the Law</title>
+    <script type="text/javascript" src="https://d3js.org/d3.v6.js"></script>
+    <link rel="stylesheet" href="final_style.css">
+  </head>
+  <body>
+
+    <container class="svg">
+      <svg id="intro"></svg>
+    </container>
+    <container class="svg">
+      <svg class="side"></svg>
+      <svg class="main" id="firstview"></svg>
+    </container>
+    <container class="svg">
+      <svg class="side backArrow"></svg>
+      <svg class="main" id="secondview"></svg>
+    </container>
+    <container class="svg">
+      <svg class="side backArrow back2"></svg>
+      <svg class="main" id="thirdview"></svg>
+    </container>
+
+    <container id="introblock">
+      <div class="rainbow">QUEER</div>
+      <div id="subtitle">IN THE EYES OF THE LAW</div>
+      <div class="space"></div>
+      <div class="description">People of marginalized sexual orientations have
+        fought to be treated equally under the law for much of modern history.
+        While queer rights causes have gained popularity and earned successes
+        over the years, the truth is that queer people still face great
+        inconsistencies in legal rights and protections depending on the simple
+        fact of where they live. This project is an exploration of the variations
+        in how queer lives are governed around the world.</div>
+    </container>
+
+    <container id="firstblock">
+      <div class="rainbow"><a href="#intro">Q</a></div>
+      <div class="smallest">click the Q to return home</div>
+      <hr class="divider">
+      <p class="descriptionSmall">There are a few factors that affect who is
+        impacted by the laws represented in these charts. Some places
+        criminalize certain "unnatural" sexual activity regardless of the
+        participants' genders. Some places don't allow single people to adopt
+        children, whether they're queer or not.</p>
+      <p class="descriptionSmall">In addition, getting data on who identifies
+        as queer (or any other identity label) can be tricky. Some might choose
+        not to self-report on surveys, because of fears of social stigma. Others
+        might not identify a certain way at the time of surveying, but may change
+        their labels later.</p>
+      <p class="descriptionSmall">For these reasons, the population numbers shown
+        by these charts represent the entire population of the places that have
+        each law in effect, not just a subset that might identify as queer.</p>
+    </container>
+
+    <container id="legendContainer">
+      <div class="legendTitle">legend</div>
+      <div class="legend">
+        <div class="circle">
+          <p id="circle1"></p>
+          <p id="circle2"></p>
+          <p id="circle3"></p>
+        </div>
+        <div class="text">
+          <p>laws positively affecting queer citizens</p>
+          <p>absence of laws affecting queer citizens</p>
+          <p>laws negatively affecting queer citizens</p>
+        </div>
+      </div>
+    </container>
+
+    <container id="tooltip">
+      <svg id="pieZoom"></svg>
+      <div id="pieContainer">
+        <div id="pieNum"></div>
+        <div class="pieDesc" id="desc1"></div>
+        <div class="pieDesc" id="desc2"></div>
+        <div class="pieDesc" id="desc3"></div>
+        <div class="pieDesc" id="desc4"></div>
+        <div class="space"></div>
+        <div class="pieFoot" id="foot1"></div>
+        <div class="pieFoot" id="foot2"></div>
+        <div class="space"></div>
+        <div class="footer">CLICK THE PIE TO LEARN MORE!</div>
+      </div>
+    </container>
+
+    <container id="secondblock">
+      <div class="rainbow"><a href="#intro">Q</a></div>
+      <div class="smallest">click the Q to return home</div>
+      <hr class="divider">
+      <p class="descriptionSmall">Some areas of the world are considered much
+        more queer-friendly than others, but some places defy those expectations
+        (in good or bad ways). While we may consider "developed" and "developing"
+        parts of the world as distinct, monolithic regions, there is a lot of
+        variation within those categories.</p>
+      <p class="descriptionSmall">The Global North, or "first world," is
+        typically associated with progressive ideals; meanwhile, the Global
+        South, or "third world," may be viewed in less flattering light.</p>
+      <p class="descriptionSmall">But in terms of laws governing queerness,
+        the places appearing on these lists might subvert our preconceived ideas
+        about the world.</p>
+    </container>
+
+    <container class="map">
+      <img src="./assets/worldmap.png"></img>
+      <p>On this map, the Global North is represented in yellow and the Global
+        South is represented in purple.</p>
+      <p>Click a name to the right to learn more!</p>
+    </container>
+
+    <container id="thirdblock">
+      <div class="rainbow"><a href="#intro">Q</a></div>
+      <div class="smallest">click the Q to return home</div>
+      <hr class="divider">
+      <p id="detail"></p>
+      <p class="descriptionSmall" id="blurb"></p>
+    </container>
+
+    <script src="final_script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,280 @@
+/* general page style */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: helvetica;
+}
+
+.svg {
+  display: grid;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.side {
+  grid-column: 1;
+  width: 300px;
+  height: 800px;
+}
+
+.main {
+  grid-column: 2 / spans 8;
+}
+
+.divider {
+  border-top: 5px solid black;
+}
+
+.smallest {
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* intro */
+
+#intro {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#introblock {
+  position: absolute;
+  width: 800px;
+}
+
+.rainbow {
+  font-size: 160px;
+  font-weight: bold;
+  text-align: center;
+  background: -webkit-linear-gradient(hsla(327, 78%, 55%, 1) 18%,
+              hsla(50, 87%, 58%, 1) 38%, hsla(187, 82%, 55%, 1) 58%,
+              hsla(272, 100%, 65%, 1) 78%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#subtitle {
+  font-size: 44px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.description {
+  font-size: 20px;
+  text-align: center;
+}
+
+/* view 1 */
+
+#firstblock {
+  position: absolute;
+  width: 260px;
+}
+
+.descriptionSmall {
+  font-size: 16px;
+  text-align: center;
+}
+
+/* view 1 tooltip */
+
+#tooltip {
+  display: grid;
+  position: absolute;
+  width: 500px;
+  padding: 20px;
+  background-color: #EEEEEE;
+  border-radius: 10px;
+  opacity: 0;
+  text-align: center;
+}
+
+#pieZoom {
+  grid-column: 1;
+}
+
+#pieContainer {
+  grid-column: 2;
+  align-self: center;
+}
+
+#pieNum {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.pieDesc {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.pieFoot {
+  font-size: 14px;
+}
+
+.footer {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.pietext {
+  stroke: none;
+  font-size: 14px;
+  width: 100px;
+  height: 500px;
+}
+
+.space {
+  padding: 10px;
+}
+
+/* view 1 legend */
+
+#legendContainer {
+  position: absolute;
+  width: 250px;
+}
+
+.legendTitle {
+  background-color: #CCCCCC;
+  height: 25px;
+  border-radius: 10px 10px 0px 0px;
+  padding-top: 5px;
+  padding-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.legend {
+  display: grid;
+  border: 3px solid #CCCCCC;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.circle {
+  grid-column: 1;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+#circle1 {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  margin-top: 25px;
+  margin-bottom: 31px;
+  background-color: #E53194;
+  grid-row: 1;
+}
+
+#circle2 {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  margin-top: 28px;
+  margin-bottom: 28px;
+  background-color: #999999;
+  grid-row: 2;
+}
+
+#circle3 {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  margin-top: 31px;
+  margin-bottom: 25px;
+  background-color: #2FD4EA;
+  grid-row: 3;
+}
+
+.text {
+  grid-column: 2;
+  padding-right: 10px;
+}
+
+#text1 {
+  grid-row: 1;
+}
+
+#text2 {
+  grid-row: 2;
+}
+
+#text3 {
+  grid-row: 3;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 24px;
+  stroke: none;
+}
+
+/* view 1 pies */
+
+.arcs {
+  stroke-width: 2px;
+  stroke: white;
+}
+
+.pieClick:visited {
+  stroke: white;
+}
+
+/* view 2 */
+
+#secondblock {
+  position: absolute;
+  width: 260px;
+}
+
+/* view 2 map */
+
+.map {
+  position: absolute;
+  width: 395px;
+}
+
+.map img {
+  width: 395px;
+}
+
+.map p {
+  color: #333333;
+  font-size: 13px;
+  width: 350px;
+  margin-left: 25px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* view 2 country list */
+
+.columnLabel {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* view 3 */
+
+#thirdblock {
+  position: absolute;
+  width: 260px;
+}
+
+/* view 3 description text */
+
+.third {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#detail {
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+}
