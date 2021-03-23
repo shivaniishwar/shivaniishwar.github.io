@@ -188,6 +188,13 @@ ol li {
   font-size: 0.95rem;
 }
 
+.math {
+  background-color: #cfcfcf;
+  font-family: monospace;
+  font-size: 1.2rem;
+  color: #333333;
+}
+
 @media screen and (max-width: 768px) {
   .pgnav {
     position: static;
