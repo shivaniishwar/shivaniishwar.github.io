@@ -12,7 +12,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-md fixed-top">
-      <a class="navbar-title" href="#"><strong>SHIVANI ISHWAR</strong></a>
+      <a class="navbar-title" href="/index.html">SHIVANI ISHWAR</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainnav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -31,46 +31,62 @@
         <h3><strong>an exploration of the governance of queer lives around the world</strong></h3>
         <img src="/images/queer/title.png" class="ss">
         <p class="stitle">Introduction</p>
-        <p>x</p>
+        <p>People of marginalized sexual orientations have fought to be treated equally under the law for much of modern history. While queer rights causes have gained popularity and earned successes over the years, the truth is that queer people still face great inconsistencies in legal rights and protections depending on the simple fact of where they live. This project is an exploration of the variations in how queer lives are governed around the world.</p>
+        <p>This project was inspired by other queer rights-related data visualization projects, including those produced by <a href="https://www.gaytascience.com/">Gayta Science</a>.</p>
         <p class="stitle">Methodology</p>
-        <p>x</p>
-        <img src="/images/beauty/brands.png" class="ss" style="width: 60%;">
+        <p>This project was envisioned as a way to explain the status of queer rights around the world. It was intended for an audience who may be unfamiliar with these political issues, so great care was taken in the nature of the visualizations, the encoded information, and the accompanying explanations.</p>
         <ol>
           <li>
-            <h7>x</h7>
-            <p class="plain">x</p>
+            <h7>Data Gathering</h7>
+            <p class="plain">This project is based on data from <a href="https://ilga.org/state-sponsored-homophobia-report-2019-global-legislation-overview">ILGA World</a>, which regularly compiles a dataset of laws affecting people of marginalized sexual orientations, alongside a report entitled "State-Sponsored Homophobia." This data was integrated with population data from <a href="https://www.worldometers.info/world-population/population-by-country/">Worldometers</a>, as well as research on individual countries and non-country entities from <a href="https://en.wikipedia.org/">Wikipedia</a>.</p>
+            <p class="plain">The data was cleaned, examined, and enriched in Google Sheets. The final dataset is available to download as a CSV file <a href="/sites/queer_law/final_data.csv" download>here</a>.</p>
           </li>
           <li>
-            <h7>x</h7>
-            <p class="plain">x</p>
+            <h7>Visualization Prototypes</h7>
+            <p class="plain">During the data exploration phase, hand-drawn prototypes were used to refine the style of the visualizations. An early prototype is shown below, featuring concepts for different chart types that could be used to explore different parts of the data.</p>
+            <img src="/images/queer/prototype.jpeg" class="ss" style="width: 40%;">
+            <p class="plain">Color inspiration for this visualization was taken from the original gay pride flag, designed by <a href="https://www.glbthistory.org/gilbert-baker">Gilbert Baker</a>. The pink, yellow, teal, and purple colors from this flag were selected during the prototyping process and carried on to the final visualizations.</p>
+            <img src="/images/queer/colors.jpg" class="ss" style="width: 60%;">
           </li>
           <li>
-            <h7>x</h7>
-            <p class="plain">x</p>
+            <h7>Coding</h7>
+            <p class="plain">The webpage for this project was coded using HTML, CSS, and JavaScript. The visualizations were created in D3, using JavaScript to create interactive functions and to connect page elements together.</p>
+          </li>
+          <li>
+            <h7>Narrative</h7>
+            <p class="plain">During the coding of this project, an early version of one of the visualizations was shared with an online community to gather opinions on its clarity and comprehensibility. Feedback suggested that there was ambiguity in the way the visualization was presented, so I chose to pair the charts with explanatory text. This text was intended to explain both design decisions and narrative choices made in the representation of the data.</p>
+            <img src="/images/queer/feedback.png" class="ss" style="width: 60%;">
           </li>
         </ol>
-        <p>x</p>
         <p class="stitle">Findings</p>
-        <p>x</p>
+        <p>This project combined the data in ways that provided several insights into the state of queer rights around the world.</p>
         <ol>
           <li>
-            <h7>x</h7>
-            <p class="plain">x</p>
-            <img src="/images/beauty/behavior.png" class="ss" style="width: 80%;">
+            <h7>Lack of Legal Recognition</h7>
+            <p class="plain">Over half of the world's population lives in places that have no laws governing same-sex relationships, either positively or negatively. This amounts to 50 of the 199 countries and non-country entities included in the data.</p>
+            <img src="/images/queer/neutral.png" class="ss" style="width: 80%;">
           </li>
           <li>
-            <h7>x</h7>
-            <p class="plain">x</p>
-            <img src="/images/beauty/time.png" class="ss" style="width: 80%;">
-            <p class="plain">x</p>
-            <img src="/images/beauty/interaction.png" class="ss" style="width: 80%;">
+            <h7>Lack of Constitutional Protections</h7>
+            <p class="plain">Only nine countries recognize LGBTQ+ rights in their constitutions; this includes only three countries in the Global North and six in the Global South.</p>
+            <img src="/images/queer/low.png" class="ss" style="width: 80%;">
+          </li>
+          <li>
+            <h7>Colonial Legacies</h7>
+            <p class="plain">Interestingly, areas of the world that were oppressed under colonial regimes by European countries tended to see a setback in LGBTQ+ rights, as well as openmindedness about queerness. These rights were sometimes restored by post-colonial governments, but sometimes not. Either way, the repercussions of colonialism remain tangible to the present day.</p>
+            <img src="/images/queer/colonial.png" class="ss" style="width: 80%;">
           </li>
         </ol>
         <p class="stitle">Conclusions</p>
-        <p>x</p>
-        <p>The final deliverable for this project, in the form of a live website, is available to view <a href="/sites/queer_law/final_code.html">here</a>.</p>
+        <p>This project allowed me to learn a great deal about creating custom visualizations, both specifically in D3 and more generally. I also appreciated the opportunity to refresh and refine my skills in web development.</p>
+        <p>Overall, I believe I succeeded in the vision of my project — to take a close look at the human lives impacted by queer rights-focused laws around the world. Future work on this project might involve adding more interactive features, building out a more substantial framework for the webpage, and building compatibility for variable screen sizes and mobile devices.</p>
+        <p>The final deliverable for this project, in the form of an interactive visualization, can be viewed and explored <a href="/sites/queer_law/final_code.html">here</a>.</p>
         <p class="stitle">References</p>
-        <p>x <a href=" " class="sl">x</a>.</p>
+        <p>ILGA. "S​tate-Sponsored Homophobia Report 2019: Global legislation overview update." ​Retrieved from <a href="https://ilga.org/state-sponsored-homophobia-report-2019-global-legislation-overview" class="sl">https://ilga.org/state-sponsored-homophobia-report-2019-global-legislation-overview</a>.</p>
+        <p>Worldometers. "Population by country (2020)." Retrieved from <a href="https://www.worldometers.info/world-population/population-by-country" class="sl">https://www.worldometers.info/world-population/population-by-country</a>.</p>
+        <p>Wikipedia. Multiple pages. Retrieved from <a href="h​ttps://en.wikipedia.org/" class="sl">h​ttps://en.wikipedia.org/</a>.</p>
+        <p>Joanna Black and Jeremy Prince. "​Performance, Protest & Politics: The Art of Gilbert Baker." Retrieved from <a href="https://www.glbthistory.org/gilbert-baker" class="sl">https://www.glbthistory.org/gilbert-baker</a>.</p>
+        <p>"Gayta Science: Data Science with a LGBTQ+ Focus."​ Retrieved from ​<a href="https://www.gaytascience.com/" class="sl">https://www.gaytascience.com/</a>.</p>
         <h1 class="space"></h1>
       </div>
     </div>
