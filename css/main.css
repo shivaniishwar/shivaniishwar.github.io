@@ -13,6 +13,7 @@ body {
 .nav-link {
   color: #f6f5f3;
 }
+
 .navbar-title {
   color: #f6f5f3;
   font-size: 1.5rem;
@@ -37,6 +38,15 @@ body {
 
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(256,256,256, 0.9)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.active {
+  background-color: #1f1f20;
+  border-radius: 10px;
+}
+
+.active:hover {
+  color: #cd428d;
 }
 
 .hd {
@@ -73,10 +83,6 @@ a {
 a:hover {
   color: #cd428d;
   text-decoration: none;
-}
-
-a:clicked {
-  color: #1f1f20;
 }
 
 .spacer {
@@ -150,6 +156,13 @@ a:clicked {
 .endtxt {
   color: #f6f5f3;
   padding: 1.2em;
+}
+
+.fl {
+  color: #f6f5f3;
+  text-transform: uppercase;
+  margin-left: 2rem;
+  margin-bottom: 0;
 }
 
 .pg {
