@@ -41,12 +41,7 @@ body {
 }
 
 .active {
-  background-color: #1f1f20;
-  border-radius: 10px;
-}
-
-.active:hover {
-  color: #cd428d;
+  text-decoration: underline !important;
 }
 
 .hd {

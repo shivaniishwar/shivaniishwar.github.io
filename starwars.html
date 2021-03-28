@@ -32,14 +32,14 @@
         <img src="/images/starwars/sent_norm.png" class="ss">
         <p class="stitle">Introduction</p>
         <p>One of the most iconic choices that the <em>Star Wars</em> franchise made was to include the peculiar speech patterns of Yoda, one of Luke Skywalker's mentors in the ways of the Force. In this project, I aim to explore the subtler speech patterns that distinguish other characters' lines, using text analysis methods available in the programming language R.</p>
-        <p>I was inspired by similar text analyses of popular media, including these analyses of <a href="https://www.jennadallen.com/post/text-analytics-every-line-from-the-office/">T​he Office​</a>, <a href="https://suzan.rbind.io/2018/02/happy-galentines-day/">P​arks and Recreation</a>,​ and <a href="https://blogs.elon.edu/com329/2019/03/01/sentiment-analysis-of-every-mystery-novel-on-gutenberg-org/">​mystery novels</a>.​</p>
+        <p>I was inspired by similar text analyses of popular media, including these analyses of <a href="https://www.jennadallen.com/post/text-analytics-every-line-from-the-office/" target="_blank">T​he Office​</a>, <a href="https://suzan.rbind.io/2018/02/happy-galentines-day/" target="_blank">P​arks and Recreation</a>,​ and <a href="https://blogs.elon.edu/com329/2019/03/01/sentiment-analysis-of-every-mystery-novel-on-gutenberg-org/" target="_blank">​mystery novels</a>.​</p>
         <p class="stitle">Methodology</p>
-        <p>This project uses a dataset that includes all spoken lines in the original <em>Star Wars</em> trilogy, which I downloaded from <a href="https://www.kaggle.com/xvivancos/star-wars-movie-scripts">Kaggle</a>. Initial examination revealed that the data didn't include the full scripts, so factors like setting or directorial notes could not be included in this analysis.</p>
+        <p>This project uses a dataset that includes all spoken lines in the original <em>Star Wars</em> trilogy, which I downloaded from <a href="https://www.kaggle.com/xvivancos/star-wars-movie-scripts" target="_blank">Kaggle</a>. Initial examination revealed that the data didn't include the full scripts, so factors like setting or directorial notes could not be included in this analysis.</p>
         <p>Instead, I focused primarily on discovering any unique characteristics of major speaking characters. I investigated sentiment analysis, word frequency analysis, and topic modeling in order to illustrate differences between the characters' tendencies.</p>
         <ol>
           <li>
             <h7>Sentiment Analysis</h7>
-            <p class="plain">I used a two-step process to analyze sentiment in the dialogue. First, I used the <a href="https://nrc.canada.ca/en/research-development/products-services/technical-advisory-services/sentiment-emotion-lexicons">NRC Word-Emotion Association Lexicon</a> to sort words into "positive" and "negative" categories. Then I used the <a href="http://corpustext.com/reference/sentiment_afinn.html">AFINN Sentiment Lexicon</a> to give each word a weighted “score”: higher points for more positive words, and lower points for more negative words.</p>
+            <p class="plain">I used a two-step process to analyze sentiment in the dialogue. First, I used the <a href="https://nrc.canada.ca/en/research-development/products-services/technical-advisory-services/sentiment-emotion-lexicons" target="_blank">NRC Word-Emotion Association Lexicon</a> to sort words into "positive" and "negative" categories. Then I used the <a href="http://corpustext.com/reference/sentiment_afinn.html" target="_blank">AFINN Sentiment Lexicon</a> to give each word a weighted “score”: higher points for more positive words, and lower points for more negative words.</p>
             <p class="plain">I used this method to analyze the entire <em>Star Wars</em> scripts, and then to analyze dialogue from specific characters. For the individual characters, I normalized the scores based on the total number of words spoken, creating an average sentiment across the characters' dialogue.</p>
           </li>
           <li>
@@ -55,7 +55,7 @@
             <p class="plain">While the main focus of this project was the text analysis itself, it did help to display some of the results visually. I used bar charts to display the results of the sentiment analysis and topic modeling; I used word clouds to visualize the word frequency analysis.</p>
           </li>
         </ol>
-        <p>The code used to conduct this analysis was written in R; it can be downloaded <a href="/files/starwars_code.R">here</a>.</p>
+        <p>The code used to conduct this analysis was written in R; it can be downloaded <a href="/files/starwars_code.R" download>here</a>.</p>
         <p class="stitle">Findings</p>
         <p>Highlighted findings include:</p>
         <ol>
@@ -82,14 +82,14 @@
         <p>Future analysis might explore what the rest of the ​<em>Star Wars</em> ​franchise has to offer: analyzing the speech patterns from novelizations, extended-universe comics, movies, TV shows, as well as the prequel or sequel movies.</p>
         <p>The final deliverable for this project, an analytical report, can be downloaded <a href="/files/starwars_report.pdf" download>here</a>.</p>
         <p class="stitle">References</p>
-        <p>Allen, J. "Text Mining: Every Line from The Office." Retrieved from <a href="https://www.jennadallen.com/post/text-analytics-every-line-from-the-office/" class="sl">https://www.jennadallen.com/post/text-analytics-every-line-from-the-office/</a>.</p>
-        <p>Baert, S. "Happy Galentine's Day!"" Retrieved from <a href="https://suzan.rbind.io/2018/02/happy-galentines-day" class="sl">​https://suzan.rbind.io/2018/02/happy-galentines-day/</a>​.</p>
-        <p>Corpus. "AFINN Sentiment Lexicon." Retrieved from <a href="http://corpustext.com/reference/sentiment_afinn.html" class="sl">http://corpustext.com/reference/sentiment_afinn.html</a>.</p>
-        <p>"Cultural impact of Star Wars." Retrieved from ​<a href="https://en.wikipedia.org/wiki/Cultural_impact_of_Star_Wars" class="sl">https://en.wikipedia.org/wiki/Cultural_impact_of_Star_Wars</a>.</p>
-        <p>Government of Canada. "Sentiment and Emotion Lexicons." Retrieved from <a href="https://nrc.canada.ca/en/research-development/products-services/technical-advisory-services/sentiment-emotion-lexicons" class="sl">https://nrc.canada.ca/en/research-development/products-services/technical-advisory-services/sentiment-emotion-lexicons</a>.</p>
-        <p>R Project. "What is R?" Retrieved from <a href="https://www.r-project.org/about.html" class="sl">https://www.r-project.org/about.html</a>.</p>
-        <p>Walsh, B. "Sentiment Analysis of Every Mystery Novel on Gutenberg.org." Retrieved from <a href="https://blogs.elon.edu/com329/2019/03/01/sentiment-analysis-of-every-mystery-novel-on-gutenberg-org/" class="sl">​https://blogs.elon.edu/com329/2019/03/01/sentiment-analysis-of-every-mystery-novel-on-gutenberg-org/</a>.​</p>
-        <p>Xavier, V. "Star Wars Movie Scripts." Retrieved from <a href=​"https://www.kaggle.com/xvivancos/star-wars-movie-scripts" class="sl">https://www.kaggle.com/xvivancos/star-wars-movie-scripts</a>.​</p>
+        <p>Allen, J. "Text Mining: Every Line from The Office." Retrieved from <a href="https://www.jennadallen.com/post/text-analytics-every-line-from-the-office/" class="sl" target="_blank">https://www.jennadallen.com/post/text-analytics-every-line-from-the-office/</a>.</p>
+        <p>Baert, S. "Happy Galentine's Day!"" Retrieved from <a href="https://suzan.rbind.io/2018/02/happy-galentines-day" class="sl" target="_blank">​https://suzan.rbind.io/2018/02/happy-galentines-day/</a>​.</p>
+        <p>Corpus. "AFINN Sentiment Lexicon." Retrieved from <a href="http://corpustext.com/reference/sentiment_afinn.html" class="sl" target="_blank">http://corpustext.com/reference/sentiment_afinn.html</a>.</p>
+        <p>"Cultural impact of Star Wars." Retrieved from ​<a href="https://en.wikipedia.org/wiki/Cultural_impact_of_Star_Wars" class="sl" target="_blank">https://en.wikipedia.org/wiki/Cultural_impact_of_Star_Wars</a>.</p>
+        <p>Government of Canada. "Sentiment and Emotion Lexicons." Retrieved from <a href="https://nrc.canada.ca/en/research-development/products-services/technical-advisory-services/sentiment-emotion-lexicons" class="sl" target="_blank">https://nrc.canada.ca/en/research-development/products-services/technical-advisory-services/sentiment-emotion-lexicons</a>.</p>
+        <p>R Project. "What is R?" Retrieved from <a href="https://www.r-project.org/about.html" class="sl" target="_blank">https://www.r-project.org/about.html</a>.</p>
+        <p>Walsh, B. "Sentiment Analysis of Every Mystery Novel on Gutenberg.org." Retrieved from <a href="https://blogs.elon.edu/com329/2019/03/01/sentiment-analysis-of-every-mystery-novel-on-gutenberg-org/" class="sl" target="_blank">​https://blogs.elon.edu/com329/2019/03/01/sentiment-analysis-of-every-mystery-novel-on-gutenberg-org/</a>.​</p>
+        <p>Xavier, V. "Star Wars Movie Scripts." Retrieved from <a href=​"https://www.kaggle.com/xvivancos/star-wars-movie-scripts" class="sl" target="_blank">https://www.kaggle.com/xvivancos/star-wars-movie-scripts</a>.​</p>
         <h1 class="space"></h1>
       </div>
     </div>
