@@ -41,7 +41,10 @@ body {
 }
 
 .active {
-  text-decoration: underline !important;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: #1f1f20;
+  text-decoration-thickness: 3px;
 }
 
 .hd {
