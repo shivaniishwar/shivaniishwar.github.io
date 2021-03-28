@@ -41,9 +41,10 @@ body {
 }
 
 .active {
+  color: #1f1f20;
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-color: #1f1f20;
+  text-decoration-color: #f6f5f3;
   text-decoration-thickness: 3px;
 }
 
