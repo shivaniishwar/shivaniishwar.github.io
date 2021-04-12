@@ -1,0 +1,43 @@
+h1 {
+  font-weight: bold;
+}
+
+.st {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+svg {
+  margin: auto;
+  display: block;
+}
+
+.ctitle {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
+}
+
+.pie1:hover {
+  opacity: 70%;
+}
+
+.tt {
+  position: absolute;
+  text-align: center;
+  width: 90px;
+  height: 50px;
+  padding: 2px;
+  background: white;
+  border-radius: 10px;
+  opacity: 0;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.cstitle {
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
+}
