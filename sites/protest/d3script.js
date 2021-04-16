@@ -374,3 +374,83 @@ d3.csv("data/protest_violence.csv").then(dataset => {
       .attr("class","ctitle")
       .text("protest violence in the farmers' movement");
 });
+
+d3.csv("data/main_tweets.csv").then(dataset => {
+  const w4 = window.innerWidth/4*3;
+  const h4 = w4/2;
+  const m = 50;
+
+  const svg4 = d3.select("#no4")
+                 .attr("width",w4)
+                 .attr("height",h4);
+
+  const palette = ["#0a8901","#ff9a30"]
+  var parseTime = d3.timeParse("%d %B %Y")
+
+  svg4.append("text")
+      .attr("transform","translate(" + w4/2 + "," + (m-10) + ")")
+      .attr("text-anchor","middle")
+      .attr("class","ctitle")
+      .text("tweets about the farmers' protests");
+
+  const scaleX = d3.scaleLinear()
+                   .domain([parseTime("8 August 2020"),parseTime("13 February 2021")])
+                   .range([m,w4-m]);
+  const scaleY = d3.scaleLinear()
+                   .domain([0,62000])
+                   .range([h4-m,m]);
+  const bottomAxis = d3.axisBottom().scale(scaleX);
+  const leftAxis = d3.axisLeft().scale(scaleY);
+
+  svg4.append("g")
+      .attr("transform", "translate(0," + (h4-m) + ")")
+      .call(bottomAxis);
+  svg4.append("g")
+      .attr("transform", "translate(" + m + ",0)")
+      .call(leftAxis);
+
+  const b4 = d3.select("#b4");
+
+  var line1 = "M" + scaleX(parseTime(dataset[0]["Date"])) + "," + scaleY(dataset[0]["BB"])
+  var line2 = "M" + scaleX(parseTime(dataset[0]["Date"])) + "," + scaleY(dataset[0]["FP"])
+
+  for (i = 0; i < dataset.length; i++) {
+    add1 = " L" + scaleX(parseTime(dataset[i]["Date"])) + "," + scaleY(dataset[i]["BB"])
+    line1 += add1;
+    add2 = " L" + scaleX(parseTime(dataset[i]["Date"])) + "," + scaleY(dataset[i]["FP"])
+    line2 += add2;
+  };
+
+  const c1 = "M" + scaleX(parseTime("2 February 2021")) + "," + scaleY(62000) + " L" + scaleX(parseTime("2 February 2021")) + "," + scaleY(0);
+
+  svg4.append("g")
+      .append("path")
+      .attr("d",c1)
+      .attr("class","vert")
+      .on("mouseover", (event, d) => {
+        b4.transition()
+          .style("opacity",1)
+          .style("left", (event.pageX)+10 + "px")
+          .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mousemove", (event, d) => {
+        b4.style("left", (event.pageX)+10 + "px")
+           .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mouseout", (event, d) => {
+        b4.transition()
+           .style("opacity",0)
+      });
+  svg4.append("g")
+      .append("path")
+      .attr("d",line1)
+      .style("fill","none")
+      .style("stroke-width","2px")
+      .style("stroke",palette[0]);
+  svg4.append("g")
+      .append("path")
+      .attr("d",line2)
+      .style("fill","none")
+      .style("stroke-width","2px")
+      .style("stroke",palette[1]);
+});
