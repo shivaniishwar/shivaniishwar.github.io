@@ -18,6 +18,11 @@ svg {
   color: black;
 }
 
+.pie1 {
+  stroke: white;
+  stroke-width: 1px;
+}
+
 .pie1:hover {
   opacity: 70%;
 }
@@ -25,8 +30,7 @@ svg {
 .tt {
   position: absolute;
   text-align: center;
-  width: 90px;
-  height: 50px;
+  width: 100px;
   padding: 2px;
   background: white;
   border-radius: 10px;
@@ -40,4 +44,41 @@ svg {
   font-weight: bold;
   text-transform: uppercase;
   color: black;
+}
+
+.point1:hover {
+  stroke: black;
+  stroke-width: 2px;
+}
+
+.vert {
+  stroke: #dddddd;
+  stroke-width: 20px;
+}
+
+.vert:hover {
+  stroke: #aaaaaa;
+}
+
+.blurb {
+  position: absolute;
+  padding: 5px;
+  width: 200px;
+  font-size: 0.7rem;
+  background: #dddddd;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+.donut {
+  stroke: white;
+  stroke-width: 2px;
+}
+
+.donut:hover {
+  opacity: 70%;
+}
+
+.dot:hover {
+  opacity: 70%;
 }
