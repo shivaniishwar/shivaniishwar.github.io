@@ -82,3 +82,8 @@ svg {
 .dot:hover {
   opacity: 70%;
 }
+
+.legend {
+  font-size: 0.7rem;
+  font-weight: bold;
+}

@@ -12,11 +12,11 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
 
   const palette_u = d3.scaleOrdinal()
                       .domain(["a","b","c"])
-                      .range(["#F2C57C","#80CED7","#aaaaaa"]);
+                      .range(["#80CED7","#F2C57C","#aaaaaa"]);
 
   const palette1 = d3.scaleOrdinal()
                      .domain(["a","b"])
-                     .range(["#0a8901","#F2C57C"]);
+                     .range(["#0a8901","#80CED7"]);
 
   const scale1 = d3.scaleLinear()
                    .domain([100000000,2000000000])
@@ -453,4 +453,126 @@ d3.csv("data/main_tweets.csv").then(dataset => {
       .style("fill","none")
       .style("stroke-width","2px")
       .style("stroke",palette[1]);
+
+  svg4.append("text")
+      .attr("transform","translate(" + scaleX(parseTime("20 August 2020")) + "," + scaleY(58000) + ")")
+      .attr("text-anchor","left")
+      .attr("class","legend")
+      .text("#bharatbandh")
+  svg4.append("text")
+      .attr("transform","translate(" + scaleX(parseTime("20 August 2020")) + "," + scaleY(55000) + ")")
+      .attr("text-anchor","left")
+      .attr("class","legend")
+      .text("#farmerprotest")
+  svg4.append("g")
+      .append("path")
+      .attr("d","M" + scaleX(parseTime("11 August 2020")) + "," + scaleY(58500) + " L" + scaleX(parseTime("19 August 2020")) + "," + scaleY(58500))
+      .style("stroke-width","4px")
+      .style("stroke",palette[0]);
+  svg4.append("g")
+      .append("path")
+      .attr("d","M" + scaleX(parseTime("11 August 2020")) + "," + scaleY(55500) + " L" + scaleX(parseTime("19 August 2020")) + "," + scaleY(55500))
+      .style("stroke-width","4px")
+      .style("stroke",palette[1]);
+});
+
+d3.csv("data/volume_compare.csv").then(dataset => {
+  const w5 = window.innerWidth/3;
+  const h5 = w5*1.25;
+  const m = 50;
+
+  const svg5 = d3.select("#no5")
+                 .attr("width",w5)
+                 .attr("height",h5);
+
+  const scaleX = d3.scaleBand()
+                   .domain(dataset.map(d => d.Movement))
+                   .range([m,w5-m])
+                   .paddingInner(0.1);
+  const scaleY = d3.scaleLinear()
+                   .domain([0,0.2])
+                   .range([h5-m,m]);
+  const bottomAxis = d3.axisBottom().scale(scaleX);
+  const leftAxis = d3.axisLeft().scale(scaleY);
+  const palette_m = d3.scaleOrdinal()
+                      .domain(["a","b","c","d"])
+                      .range(["#0a8901","#ff9a30","#ab2b23","#dfd918"]);
+  const grad = d3.scaleOrdinal()
+                      .domain(["a","b","c","d"])
+                      .range(["url(#g1)","url(#g2)","url(#g3)","url(#g4)"])
+  const b5 = d3.select("#b5")
+  const pt1 = d3.select("#pt1")
+  const pt2 = d3.select("#pt2")
+  const label = {"Farmers' movement":"Indian farmers' movement (2020-2021)","2016 strike":"Indian national strike (2016)","Gilets Jaunes":"Gilets Jaunes or Yellow Vests movement (2018-2019)","Occupy Wall Street":"Occupy Wall Street movement (2011-2012)"}
+  const desc = {"Farmers' movement":"December 8, 2020: A national strike drew participation estimated to be between 200 and 250 million people. This amounts to about 14 to 18 percent of the Indian population.","2016 strike":"September 2, 2016: Indian workers protested other laws passed by the Modi government with another national strike. This set the previous record for \"biggest protest in history,\" with an estimated 150 to 180 million people participating, or about 12 percent of India's population at the time.","Gilets Jaunes":"The Yellow Vests movement was a worker's movement in France, primarily protesting laws passed by President Emmanuel Macron's government. On November 17, 2018, an estimated 282,000 people protested, or about 0.4% of France's population.","Occupy Wall Street":"The Occupy movement grew out of American workers' discontent with Wall Street in 2011 and 2012. On May 1, 2012, between 50 and 100 thousand New Yorkers demonstrated in the city's financial district. This amounts to about 1 percent of the city's population at the time."}
+
+  svg5.selectAll()
+      .data(dataset)
+      .enter()
+      .append("rect")
+      .attr("x",d => scaleX(d.Movement))
+      .attr("y",d => scaleY(d.norm_low))
+      .attr("width",scaleX.bandwidth())
+      .attr("height",d => (h5-m) - scaleY(+d.norm_low))
+      .attr("fill",(d,i) => palette_m(i))
+      .on("mouseover", (event, d) => {
+        b5.transition()
+          .style("opacity",1)
+          .style("left", (event.pageX)+10 + "px")
+          .style("top", (event.pageY)+10 + "px")
+        pt1.text(label[d.Movement]);
+        pt2.text(desc[d.Movement]);
+      })
+      .on("mousemove", (event, d) => {
+        b5.style("left", (event.pageX)+10 + "px")
+           .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mouseout", (event, d) => {
+        b5.transition()
+           .style("opacity",0)
+      });
+
+  svg5.selectAll()
+      .data(dataset)
+      .enter()
+      .append("rect")
+      .attr("x",d => scaleX(d.Movement))
+      .attr("y",d => scaleY(d.norm_high))
+      .attr("width",scaleX.bandwidth())
+      .attr("height",d => scaleY(d.norm_low) - scaleY(d.norm_high)+1)
+      .attr("fill",(d,i) => grad(i))
+      .on("mouseover", (event, d) => {
+        b5.transition()
+          .style("opacity",1)
+          .style("left", (event.pageX)+10 + "px")
+          .style("top", (event.pageY)+10 + "px")
+        pt1.text(label[d.Movement]);
+        pt2.text(desc[d.Movement]);
+      })
+      .on("mousemove", (event, d) => {
+        b5.style("left", (event.pageX)+10 + "px")
+           .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mouseout", (event, d) => {
+        b5.transition()
+           .style("opacity",0)
+      });
+
+  svg5.append("g")
+      .attr("transform", "translate(0," + (h5-m) + ")")
+      .call(bottomAxis);
+  svg5.append("g")
+      .attr("transform", "translate(" + m + ",0)")
+      .call(leftAxis);
+
+  svg5.append("text")
+      .attr("transform","translate(" + w5/2 + "," + (m-10) + ")")
+      .attr("text-anchor","middle")
+      .attr("class","ctitle")
+      .text("protest movement participation");
+  svg5.append("text")
+      .attr("transform","translate(" + w5/2 + "," + (m+10) + ")")
+      .attr("text-anchor","middle")
+      .attr("class","ctitle")
+      .text("as a percentage of population");
 });
