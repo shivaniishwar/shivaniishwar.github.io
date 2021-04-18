@@ -496,7 +496,7 @@ d3.csv("data/volume_compare.csv").then(dataset => {
   const leftAxis = d3.axisLeft().scale(scaleY);
   const palette_m = d3.scaleOrdinal()
                       .domain(["a","b","c","d"])
-                      .range(["#0a8901","#ff9a30","#ab2b23","#dfd918"]);
+                      .range(["#0a8901","#ff9a30","#dfd918","#ab2b23"]);
   const grad = d3.scaleOrdinal()
                       .domain(["a","b","c","d"])
                       .range(["url(#g1)","url(#g2)","url(#g3)","url(#g4)"])
@@ -597,7 +597,7 @@ d3.csv("data/tweets_compare.csv").then(dataset => {
   const leftAxis = d3.axisLeft().scale(scaleY);
   const palette_m = d3.scaleOrdinal()
                       .domain(["a","b","c","d"])
-                      .range(["#0a8901","#ff9a30","#ab2b23","#dfd918"]);
+                      .range(["#0a8901","#ff9a30","#dfd918","#ab2b23"]);
 
   const b6 = d3.select("#b6")
   const pt3 = d3.select("#pt3")
