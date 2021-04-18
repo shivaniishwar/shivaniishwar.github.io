@@ -12,11 +12,11 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
 
   const palette_u = d3.scaleOrdinal()
                       .domain(["a","b","c"])
-                      .range(["#80CED7","#F2C57C","#aaaaaa"]);
+                      .range(["#000089","red","#aaaaaa"]);
 
   const palette1 = d3.scaleOrdinal()
                      .domain(["a","b"])
-                     .range(["#0a8901","#80CED7"]);
+                     .range(["#0a8901","#000089"]);
 
   const scale1 = d3.scaleLinear()
                    .domain([100000000,2000000000])
@@ -575,4 +575,123 @@ d3.csv("data/volume_compare.csv").then(dataset => {
       .attr("text-anchor","middle")
       .attr("class","ctitle")
       .text("as a percentage of population");
+});
+
+d3.csv("data/tweets_compare.csv").then(dataset => {
+  const w6 = window.innerWidth/3;
+  const h6 = w6*1.25;
+  const m = 50;
+
+  const svg6 = d3.select("#no6")
+                 .attr("width",w6)
+                 .attr("height",h6);
+
+  const scaleX = d3.scaleBand()
+                   .domain(dataset.map(d => d.hashtag))
+                   .range([m,w6-m])
+                   .paddingInner(0.1);
+  const scaleY = d3.scaleLinear()
+                   .domain([0,250000])
+                   .range([h6-m,m]);
+  const bottomAxis = d3.axisBottom().scale(scaleX);
+  const leftAxis = d3.axisLeft().scale(scaleY);
+  const palette_m = d3.scaleOrdinal()
+                      .domain(["a","b","c","d"])
+                      .range(["#0a8901","#ff9a30","#ab2b23","#dfd918"]);
+
+  const b6 = d3.select("#b6")
+  const pt3 = d3.select("#pt3")
+  const pt4 = d3.select("#pt4")
+  const label = {"Farmers' movement":"#bharatbandh and #farmerprotest, 2020-2021","2016 strike":"#bharatbandh, 2016","Gilets Jaunes":"#giletsjaunes, 2018-2019","Occupy Wall Street":"#occupywallstreet, 2011-2012"}
+
+  svg6.selectAll()
+      .data(dataset)
+      .enter()
+      .append("rect")
+      .attr("x",d => scaleX(d.hashtag))
+      .attr("y",d => scaleY(d.norm))
+      .attr("width",scaleX.bandwidth())
+      .attr("height",d => (h6-m) - scaleY(+d.norm))
+      .attr("fill",(d,i) => palette_m(i))
+      .on("mouseover", (event, d) => {
+        b6.transition()
+          .style("opacity",1)
+          .style("left", (event.pageX)+10 + "px")
+          .style("top", (event.pageY)+10 + "px")
+        pt3.text(label[d.hashtag]);
+        pt4.text(d3.format(",")(d.tweets) + " tweets in " + d.months + " months, averaging " + d3.format(",")(d3.format(".0f")(d.norm)) + " tweets per month")
+      })
+      .on("mousemove", (event, d) => {
+        b6.style("left", (event.pageX)+10 + "px")
+           .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mouseout", (event, d) => {
+        b6.transition()
+           .style("opacity",0)
+      });
+  svg6.append("g")
+      .attr("transform", "translate(0," + (h6-m) + ")")
+      .call(bottomAxis);
+  svg6.append("g")
+      .attr("transform", "translate(" + m + ",0)")
+      .call(leftAxis);
+
+  svg6.append("text")
+      .attr("transform","translate(" + w6/2 + "," + (m-10) + ")")
+      .attr("text-anchor","middle")
+      .attr("class","ctitle")
+      .text("number of tweets for each protest movement");
+});
+
+d3.csv("data/crops.csv").then(dataset => {
+  const w7 = window.innerWidth/3;
+  const h7 = w7;
+  const m = 50;
+
+  const sm = d3.select("#sm")
+               .attr("width",w7)
+               .attr("height",h7);
+  var pie = d3.pie();
+  const number = [dataset[0]['number'],dataset[1]['number'],dataset[2]['number'],dataset[3]['number']]
+  const type = [dataset[0]['type'],dataset[1]['type'],dataset[2]['type'],dataset[3]['type']]
+  const desc = [dataset[0]['desc'],dataset[1]['desc'],dataset[2]['desc'],dataset[3]['desc']]
+
+  const cArcs = pie(number);
+  var cPalette = d3.scaleOrdinal()
+                   .domain(["a","b","c","d"])
+                   .range(["#0a8901","#ff9a30","#000089","red"])
+  const ttsm = d3.select("#ttsm")
+
+  sm.append("g")
+    .attr("transform","translate(" + w7/2 + "," + h7/2 + ")")
+    .selectAll("cArcs")
+    .data(cArcs)
+    .enter()
+    .append("path")
+    .attr("d",d3.arc()
+                .innerRadius(w7/6)
+                .outerRadius(w7/3))
+    .attr("class","donut")
+    .attr("fill",(d,i) => cPalette(i))
+    .on("mouseover", (event, d) => {
+      ttsm.transition()
+         .style("opacity",1)
+         .style("left", (event.pageX)+10 + "px")
+         .style("top", (event.pageY)+10 + "px")
+         .text(d.data + " " + type[d.index] + ", " + desc[d.index])
+    })
+    .on("mousemove", (event, d) => {
+      ttsm.style("left", (event.pageX)+10 + "px")
+         .style("top", (event.pageY)+10 + "px")
+    })
+    .on("mouseout", (event, d) => {
+      ttsm.transition()
+         .style("opacity",0)
+    });
+
+  sm.append("text")
+      .attr("transform","translate(" + w7/2 + "," + m + ")")
+      .attr("text-anchor","middle")
+      .attr("class","ctitle")
+      .text("crops subsidized by the msp system");
 });
