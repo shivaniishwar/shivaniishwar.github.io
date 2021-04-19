@@ -18,12 +18,12 @@ svg {
   color: black;
 }
 
-.pie1 {
+.pie {
   stroke: white;
   stroke-width: 1px;
 }
 
-.pie1:hover {
+.pie:hover {
   opacity: 70%;
 }
 

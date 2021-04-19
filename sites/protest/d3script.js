@@ -1,6 +1,7 @@
 d3.csv("data/india_vs_us.csv").then(dataset => {
   const w1 = window.innerWidth/3*2;
   const h1 = w1/2;
+  const m = 25;
 
   const svg1 = d3.select("#no1")
                  .attr("width",w1)
@@ -12,15 +13,11 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
 
   const palette_u = d3.scaleOrdinal()
                       .domain(["a","b","c"])
-                      .range(["#000089","red","#aaaaaa"]);
+                      .range(["#000089","#CC3232","#aaaaaa"]);
 
   const palette1 = d3.scaleOrdinal()
                      .domain(["a","b"])
                      .range(["#0a8901","#000089"]);
-
-  const scale1 = d3.scaleLinear()
-                   .domain([100000000,2000000000])
-                   .range([h1/8,h1/8*3]);
 
   const li = dataset[0]["Land"]
   const lus = dataset[1]["Land"]
@@ -42,14 +39,14 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
 
   svg1.append("g")
       .attr("transform","translate(" + w1/6 + "," + h1/2 + ")")
-      .selectAll("pie1")
+      .selectAll("pie")
       .data(iArcs)
       .enter()
       .append("path")
       .attr("d",d3.arc()
                   .innerRadius(0)
-                  .outerRadius(scale1(dataset[0]["Population"])))
-      .attr("class","pie1")
+                  .outerRadius(h1/4))
+      .attr("class","pie")
       .attr("fill",(d,i) => palette_i(i))
       .on("mouseover", (event, d) => {
         tt1.transition()
@@ -83,8 +80,8 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
       .append("path")
       .attr("d",d3.arc()
                   .innerRadius(0)
-                  .outerRadius(scale1(dataset[1]["Population"])))
-      .attr("class","pie1")
+                  .outerRadius(h1/4))
+      .attr("class","pie")
       .attr("fill",(d,i) => palette_u(i))
       .on("mouseover", (event, d) => {
         tt1.transition()
@@ -110,8 +107,8 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
       .append("path")
       .attr("d",d3.arc()
                   .innerRadius(0)
-                  .outerRadius(100))
-      .attr("class","pie1")
+                  .outerRadius(h1/4))
+      .attr("class","pie")
       .attr("fill",(d,i) => palette1(i))
       .on("mouseover", (event, d) => {
         tt1.transition()
@@ -145,13 +142,13 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
       .attr("transform","translate(" + w1/6 + "," + h1/8*7 + ")")
       .attr("text-anchor", "middle")
       .attr("class","cstitle")
-      .text("indian agriculture by population");
+      .text("indian population in agriculture");
 
   svg1.append("text")
       .attr("transform","translate(" + w1/2 + "," + h1/8*7 + ")")
       .attr("text-anchor", "middle")
       .attr("class","cstitle")
-      .text("U.S. agriculture by population");
+      .text("U.S. population in agriculture");
 });
 
 d3.csv("data/protest_count.csv").then(dataset => {
@@ -299,8 +296,8 @@ d3.csv("data/protest_count.csv").then(dataset => {
 
 d3.csv("data/protest_violence.csv").then(dataset => {
   const w3 = window.innerWidth/3;
-  const h3 = w3;
-  const m = 50;
+  const h3 = w3*0.8;
+  const m = 25;
 
   const svg3 = d3.select("#no3")
                  .attr("width",w3)
@@ -318,7 +315,7 @@ d3.csv("data/protest_violence.csv").then(dataset => {
                    .range(["#0a8901","#ff9a30","#000089","#aaaaaa"])
 
   svg3.append("g")
-      .attr("transform","translate(" + w3/2 + "," + h3/2 + ")")
+      .attr("transform","translate(" + w3/2 + "," + (h3/2+m) + ")")
       .selectAll("donut")
       .data(vArcs)
       .enter()
@@ -346,12 +343,11 @@ d3.csv("data/protest_violence.csv").then(dataset => {
 
   svg3.append("circle")
       .attr("cx",w3/2)
-      .attr("cy",h3/2)
+      .attr("cy",(h3/2+m))
       .attr("r",10)
-      .attr("fill","red")
-      .attr("class","dot")
+      .attr("fill","#CC3232")
+      .attr("class","donut")
       .on("mouseover", (event, d) => {
-        d3.select(".dot").attr("fill-opacity","0.7")
         tt3.transition()
            .style("opacity",1)
            .style("left", (event.pageX)+10 + "px")
@@ -645,25 +641,25 @@ d3.csv("data/tweets_compare.csv").then(dataset => {
 
 d3.csv("data/crops.csv").then(dataset => {
   const w7 = window.innerWidth/3;
-  const h7 = w7;
-  const m = 50;
+  const h7 = w7*0.8;
+  const m = 25;
 
   const sm = d3.select("#sm")
                .attr("width",w7)
                .attr("height",h7);
   var pie = d3.pie();
   const number = [dataset[0]['number'],dataset[1]['number'],dataset[2]['number'],dataset[3]['number']]
-  const type = [dataset[0]['type'],dataset[1]['type'],dataset[2]['type'],dataset[3]['type']]
-  const desc = [dataset[0]['desc'],dataset[1]['desc'],dataset[2]['desc'],dataset[3]['desc']]
+  const type = [dataset[0]['type'],dataset[2]['type'],dataset[1]['type'],dataset[3]['type']]
+  const desc = [dataset[0]['desc'],dataset[2]['desc'],dataset[1]['desc'],dataset[3]['desc']]
 
   const cArcs = pie(number);
   var cPalette = d3.scaleOrdinal()
                    .domain(["a","b","c","d"])
-                   .range(["#0a8901","#ff9a30","#000089","red"])
+                   .range(["#0a8901","#ff9a30","#000089","#CC3232"])
   const ttsm = d3.select("#ttsm")
 
   sm.append("g")
-    .attr("transform","translate(" + w7/2 + "," + h7/2 + ")")
+    .attr("transform","translate(" + w7/2 + "," + (h7/2+m) + ")")
     .selectAll("cArcs")
     .data(cArcs)
     .enter()
