@@ -1,154 +1,141 @@
+const i1 = "#7C9D53";
+const i2 = "#D16014";
+const i3 = "#2E5266";
+const i4 = "#6C0E23";
+const y = "#D4CB68";
+const o = "#6C0E23";
+const n1 = "#aaaaaa";
+const n2 = "#dddddd";
+
 d3.csv("data/india_vs_us.csv").then(dataset => {
   const w1 = window.innerWidth/3*2;
   const h1 = w1/2;
-  const m = 25;
+  const m = w1/40;
 
   const svg1 = d3.select("#no1")
                  .attr("width",w1)
                  .attr("height",h1);
 
-  const palette_i = d3.scaleOrdinal()
-                      .domain(["a","b","c"])
-                      .range(["#0a8901","#ff9a30","#aaaaaa"]);
-
-  const palette_u = d3.scaleOrdinal()
-                      .domain(["a","b","c"])
-                      .range(["#000089","#CC3232","#aaaaaa"]);
-
   const palette1 = d3.scaleOrdinal()
-                     .domain(["a","b"])
-                     .range(["#0a8901","#000089"]);
-
-  const li = dataset[0]["Land"]
-  const lus = dataset[1]["Land"]
-  const countries = ["U.S.","India"]
+                      .domain(["a","b","c"])
+                      .range([i1,i2,n1]);
+  const scaleX = d3.scaleLinear()
+                   .domain([0,1])
+                   .range([m, w1/2-m]);
+  const scaleY = d3.scaleBand()
+                   .domain(d3.range(dataset.length))
+                   .range([(3*m), h1-m]);
 
   const tt1 = d3.select("#tt1");
 
-  var pie = d3.pie();
-  var land = [li,lus]
-  const lArcs = pie(land);
+  const stack = d3.stack()
+                  .keys(["Farmers_Percent","Agri_Percent","Other_Percent"]);
+  const series = stack(dataset);
 
-  const fi = dataset[0]["Farmers_Percent"]
-  const ai = dataset[0]["Agri_Percent"]
-  const oi = dataset[0]["Other_Percent"]
-  const label_i = [" of Indians work in agriculture"," of Indians don't work in agriculture"," of Indians are farmers"]
+  const grp = svg1.selectAll()
+                  .data(series)
+                  .enter()
+                  .append("g")
+                  .style("fill", (d,i) => palette1(i));
 
-  var a_india = [fi,ai,oi]
-  const iArcs = pie(a_india);
+  const label = {0.08695624543: " are farmers",0.493: " work in agriculture",0.41999999999999993: " do not work in agriculture", 0.007854921984: " are farmers",0.010271821059999998: " work in agriculture",0.9818732570000002: " do not work in agriculture"}
 
-  svg1.append("g")
-      .attr("transform","translate(" + w1/6 + "," + h1/2 + ")")
-      .selectAll("pie")
-      .data(iArcs)
-      .enter()
-      .append("path")
-      .attr("d",d3.arc()
-                  .innerRadius(0)
-                  .outerRadius(h1/4))
-      .attr("class","pie")
-      .attr("fill",(d,i) => palette_i(i))
-      .on("mouseover", (event, d) => {
-        tt1.transition()
-           .style("opacity",1)
-           .style("left", (event.pageX)+10 + "px")
-           .style("top", (event.pageY)+10 + "px")
-           .text(d3.format(".0%")(d.data) + label_i[d.index])
-      })
-      .on("mousemove", (event, d) => {
-        tt1.style("left", (event.pageX)+10 + "px")
-           .style("top", (event.pageY)+10 + "px")
-      })
-      .on("mouseout", (event, d) => {
-        tt1.transition()
-           .style("opacity",0)
-      });
+  grp.selectAll("rect")
+     .data(d => d)
+     .enter()
+     .append("rect")
+     .attr("class","bar")
+     .attr("x",d => scaleX(d[0]))
+     .attr("y",(d,i) => scaleY(i))
+     .attr("width",d => scaleX(d[1])-scaleX(d[0]))
+     .attr("height",scaleY.bandwidth()-(2*m))
+     .on("mouseover", (event, d) => {
+       tt1.transition()
+          .style("opacity",1)
+          .style("left", (event.pageX)+10 + "px")
+          .style("top", (event.pageY)+10 + "px")
+          .text(d3.format(".0%")(d[1]-d[0]) + " of people in " + d["data"]["Country"] + label[(d[1]-d[0])])
+     })
+     .on("mousemove", (event, d) => {
+       tt1.style("left", (event.pageX)+10 + "px")
+          .style("top", (event.pageY)+10 + "px")
+     })
+     .on("mouseout", (event, d) => {
+       tt1.transition()
+          .style("opacity",0)
+     });
 
-  const fu = dataset[1]["Farmers_Percent"]
-  const au = dataset[1]["Agri_Percent"]
-  const ou = dataset[1]["Other_Percent"]
-  const label_u = [" of Americans don't work in agriculture"," of Americans work in agriculture"," of Americans are farmers"]
+  svg1.append("circle")
+      .attr("cx",w1/5*3)
+      .attr("cy",scaleY(0))
+      .attr("r",5)
+      .attr("fill",i1);
+  svg1.append("text")
+      .attr("x",w1/5*3 + 10)
+      .attr("y",scaleY(0) + 4)
+      .attr("class","cstitle")
+      .attr("text-anchor","left")
+      .text("= 1 hectare")
 
-  var a_us = [fu,au,ou]
-  const uArcs = pie(a_us);
+  for (i = 0; i < 2; i++) {
+    svg1.append("circle")
+        .attr("cx",w1/5*3 + (15*i))
+        .attr("cy",scaleY(0) + h1/8)
+        .attr("r",5)
+        .attr("fill",i1)
+        .on("mouseover", (event, d) => {
+          tt1.transition()
+             .style("opacity",1)
+             .style("left", (event.pageX)+10 + "px")
+             .style("top", (event.pageY)+10 + "px")
+             .text("Indian farms average 2.3 hectares")
+        })
+        .on("mousemove", (event, d) => {
+          tt1.style("left", (event.pageX)+10 + "px")
+             .style("top", (event.pageY)+10 + "px")
+        })
+        .on("mouseout", (event, d) => {
+          tt1.transition()
+             .style("opacity",0)
+        });
+  }
 
-  svg1.append("g")
-      .attr("transform","translate(" + w1/2 + "," + h1/2 + ")")
-      .selectAll("pie2")
-      .data(uArcs)
-      .enter()
-      .append("path")
-      .attr("d",d3.arc()
-                  .innerRadius(0)
-                  .outerRadius(h1/4))
-      .attr("class","pie")
-      .attr("fill",(d,i) => palette_u(i))
-      .on("mouseover", (event, d) => {
-        tt1.transition()
-           .style("opacity",1)
-           .style("left", (event.pageX)+10 + "px")
-           .style("top", (event.pageY)+10 + "px")
-           .text(d3.format(".0%")(d.data) + label_u[d.index])
-      })
-      .on("mousemove", (event, d) => {
-        tt1.style("left", (event.pageX)+10 + "px")
-           .style("top", (event.pageY)+10 + "px")
-      })
-      .on("mouseout", (event, d) => {
-        tt1.transition()
-           .style("opacity",0)
-      });
+  const row = 22
+  for (i = 0; i < dataset[1]["Land"]; i++) {
+    svg1.append("circle")
+        .attr("cx",w1/5*3 + (15*(i%row)))
+        .attr("cy",scaleY(1) - h1/16 + (15*Math.floor(i/row)))
+        .attr("r",5)
+        .attr("fill",i1)
+        .on("mouseover", (event, d) => {
+          tt1.transition()
+             .style("opacity",1)
+             .style("left", (event.pageX)+10 + "px")
+             .style("top", (event.pageY)+10 + "px")
+             .text("American farms average 250 hectares")
+        })
+        .on("mousemove", (event, d) => {
+          tt1.style("left", (event.pageX)+10 + "px")
+             .style("top", (event.pageY)+10 + "px")
+        })
+        .on("mouseout", (event, d) => {
+          tt1.transition()
+             .style("opacity",0)
+        });
+  }
 
-  svg1.append("g")
-      .attr("transform","translate(" + w1/6*5 + "," + h1/2 + ")")
-      .selectAll("pie3")
-      .data(lArcs)
-      .enter()
-      .append("path")
-      .attr("d",d3.arc()
-                  .innerRadius(0)
-                  .outerRadius(h1/4))
-      .attr("class","pie")
-      .attr("fill",(d,i) => palette1(i))
-      .on("mouseover", (event, d) => {
-        tt1.transition()
-           .style("opacity",1)
-           .style("left", (event.pageX)+10 + "px")
-           .style("top", (event.pageY)+10 + "px")
-           .text("average farm size in " + countries[d.index] + ": " + d.data + " hectares")
-      })
-      .on("mousemove", (event, d) => {
-        tt1.style("left", (event.pageX)+10 + "px")
-           .style("top", (event.pageY)+10 + "px")
-      })
-      .on("mouseout", (event, d) => {
-        tt1.transition()
-           .style("opacity",0)
-      });
+  svg1.append("rect")
+      .attr("x",m)
+      .attr("y",(2*m))
+      .attr("height",h1-(4*m))
+      .attr("width",1);
 
   svg1.append("text")
-      .attr("transform","translate(" + w1/2 + "," + h1/8 + ")")
-      .attr("text-anchor", "middle")
       .attr("class","ctitle")
-      .text("agriculture in india vs. the united states");
-
-  svg1.append("text")
-      .attr("transform","translate(" + w1/6*5 + "," + h1/8*7 + ")")
-      .attr("text-anchor", "middle")
-      .attr("class","cstitle")
-      .text("average farm size");
-
-  svg1.append("text")
-      .attr("transform","translate(" + w1/6 + "," + h1/8*7 + ")")
-      .attr("text-anchor", "middle")
-      .attr("class","cstitle")
-      .text("indian population in agriculture");
-
-  svg1.append("text")
-      .attr("transform","translate(" + w1/2 + "," + h1/8*7 + ")")
-      .attr("text-anchor", "middle")
-      .attr("class","cstitle")
-      .text("U.S. population in agriculture");
+      .attr("x",(w1/2))
+      .attr("y",(1.5*m))
+      .attr("text-anchor","middle")
+      .text("an agricultural economy built on small farms")
 });
 
 d3.csv("data/protest_count.csv").then(dataset => {
@@ -160,14 +147,14 @@ d3.csv("data/protest_count.csv").then(dataset => {
                  .attr("width",w2)
                  .attr("height",h2);
 
-  const color = "#0a8901"
+  const color = i1
   var parseTime = d3.timeParse("%d %B %Y")
 
   svg2.append("text")
       .attr("transform","translate(" + w2/2 + "," + (m-10) + ")")
       .attr("text-anchor","middle")
       .attr("class","ctitle")
-      .text("protests related to the farmers' movement");
+      .text("a timeline of the farmers' movement");
 
   const scaleX = d3.scaleLinear()
                    .domain([parseTime("8 August 2020"),parseTime("13 February 2021")])
@@ -178,15 +165,6 @@ d3.csv("data/protest_count.csv").then(dataset => {
   const scaleR = d3.scaleLinear()
                    .domain([0,300])
                    .range([1.5,6]);
-  const bottomAxis = d3.axisBottom().scale(scaleX);
-  const leftAxis = d3.axisLeft().scale(scaleY);
-
-  svg2.append("g")
-      .attr("transform", "translate(0," + (h2-m) + ")")
-      .call(bottomAxis);
-  svg2.append("g")
-      .attr("transform", "translate(" + m + ",0)")
-      .call(leftAxis);
 
   const tt2 = d3.select("#tt2");
   const b1 = d3.select("#b1");
@@ -203,6 +181,92 @@ d3.csv("data/protest_count.csv").then(dataset => {
   const v1 = "M" + scaleX(parseTime("25 September 2020")) + "," + scaleY(260) + " L" + scaleX(parseTime("25 September 2020")) + "," + scaleY(0)
   const v2 = "M" + scaleX(parseTime("8 December 2020")) + "," + scaleY(260) + " L" + scaleX(parseTime("8 December 2020")) + "," + scaleY(0)
   const v3 = "M" + scaleX(parseTime("6 February 2021")) + "," + scaleY(260) + " L" + scaleX(parseTime("6 February 2021")) + "," + scaleY(0)
+
+  svg2.append("rect")
+      .attr("x",scaleX(parseTime("8 August 2020")))
+      .attr("y",h2-m)
+      .attr("width",scaleX(parseTime("1 September 2020")) - scaleX(parseTime("8 August 2020")))
+      .attr("height",15)
+      .attr("fill",n1);
+  svg2.append("rect")
+      .attr("x",scaleX(parseTime("1 September 2020")))
+      .attr("y",h2-m)
+      .attr("width",scaleX(parseTime("1 October 2020")) - scaleX(parseTime("1 September 2020")))
+      .attr("height",15)
+      .attr("fill",n2);
+  svg2.append("rect")
+      .attr("x",scaleX(parseTime("1 October 2020")))
+      .attr("y",h2-m)
+      .attr("width",scaleX(parseTime("1 November 2020")) - scaleX(parseTime("1 October 2020")))
+      .attr("height",15)
+      .attr("fill",n1);
+  svg2.append("rect")
+      .attr("x",scaleX(parseTime("1 November 2020")))
+      .attr("y",h2-m)
+      .attr("width",scaleX(parseTime("1 December 2020")) - scaleX(parseTime("1 November 2020")))
+      .attr("height",15)
+      .attr("fill",n2);
+  svg2.append("rect")
+      .attr("x",scaleX(parseTime("1 December 2020")))
+      .attr("y",h2-m)
+      .attr("width",scaleX(parseTime("1 January 2021")) - scaleX(parseTime("1 December 2020")))
+      .attr("height",15)
+      .attr("fill",n1);
+  svg2.append("rect")
+      .attr("x",scaleX(parseTime("1 January 2021")))
+      .attr("y",h2-m)
+      .attr("width",scaleX(parseTime("1 February 2021")) - scaleX(parseTime("1 January 2021")))
+      .attr("height",15)
+      .attr("fill",n2);
+  svg2.append("rect")
+      .attr("x",scaleX(parseTime("1 February 2021")))
+      .attr("y",h2-m)
+      .attr("width",scaleX(parseTime("13 February 2021")) - scaleX(parseTime("1 February 2021")))
+      .attr("height",15)
+      .attr("fill",n1);
+
+  svg2.append("rect")
+      .attr("x",m)
+      .attr("y",h2-m)
+      .attr("width",w2-(2*m))
+      .attr("height",1);
+
+  svg2.append("text")
+      .attr("x",scaleX(parseTime("20 August 2020")))
+      .attr("y",h2-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("August");
+  svg2.append("text")
+      .attr("x",scaleX(parseTime("16 September 2020")))
+      .attr("y",h2-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("September");
+  svg2.append("text")
+      .attr("x",scaleX(parseTime("16 October 2020")))
+      .attr("y",h2-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("October");
+  svg2.append("text")
+      .attr("x",scaleX(parseTime("16 November 2020")))
+      .attr("y",h2-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("November");
+  svg2.append("text")
+      .attr("x",scaleX(parseTime("17 December 2020")))
+      .attr("y",h2-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("December");
+  svg2.append("text")
+      .attr("x",scaleX(parseTime("17 January 2021")))
+      .attr("y",h2-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("January");
 
   svg2.append("g")
       .append("path")
@@ -312,7 +376,7 @@ d3.csv("data/protest_violence.csv").then(dataset => {
 
   var vPalette = d3.scaleOrdinal()
                    .domain(["a","b","c","d"])
-                   .range(["#0a8901","#ff9a30","#000089","#aaaaaa"])
+                   .range([i1,i2,i3,i4])
 
   svg3.append("g")
       .attr("transform","translate(" + w3/2 + "," + (h3/2+m) + ")")
@@ -345,7 +409,7 @@ d3.csv("data/protest_violence.csv").then(dataset => {
       .attr("cx",w3/2)
       .attr("cy",(h3/2+m))
       .attr("r",10)
-      .attr("fill","#CC3232")
+      .attr("fill",i4)
       .attr("class","donut")
       .on("mouseover", (event, d) => {
         tt3.transition()
@@ -368,7 +432,7 @@ d3.csv("data/protest_violence.csv").then(dataset => {
       .attr("transform","translate(" + w3/2 + "," + m + ")")
       .attr("text-anchor","middle")
       .attr("class","ctitle")
-      .text("protest violence in the farmers' movement");
+      .text("what counts as excessive force?");
 });
 
 d3.csv("data/main_tweets.csv").then(dataset => {
@@ -380,7 +444,7 @@ d3.csv("data/main_tweets.csv").then(dataset => {
                  .attr("width",w4)
                  .attr("height",h4);
 
-  const palette = ["#0a8901","#ff9a30"]
+  const palette = [i1,i2]
   var parseTime = d3.timeParse("%d %B %Y")
 
   svg4.append("text")
@@ -390,22 +454,15 @@ d3.csv("data/main_tweets.csv").then(dataset => {
       .text("tweets about the farmers' protests");
 
   const scaleX = d3.scaleLinear()
-                   .domain([parseTime("8 August 2020"),parseTime("13 February 2021")])
+                   .domain([parseTime("8 August 2020"),parseTime("19 March 2021")])
                    .range([m,w4-m]);
   const scaleY = d3.scaleLinear()
                    .domain([0,62000])
                    .range([h4-m,m]);
-  const bottomAxis = d3.axisBottom().scale(scaleX);
-  const leftAxis = d3.axisLeft().scale(scaleY);
 
-  svg4.append("g")
-      .attr("transform", "translate(0," + (h4-m) + ")")
-      .call(bottomAxis);
-  svg4.append("g")
-      .attr("transform", "translate(" + m + ",0)")
-      .call(leftAxis);
-
-  const b4 = d3.select("#b4");
+  const t1 = d3.select("#t1");
+  const t2 = d3.select("#t2");
+  const t3 = d3.select("#t3");
 
   var line1 = "M" + scaleX(parseTime(dataset[0]["Date"])) + "," + scaleY(dataset[0]["BB"])
   var line2 = "M" + scaleX(parseTime(dataset[0]["Date"])) + "," + scaleY(dataset[0]["FP"])
@@ -417,26 +474,65 @@ d3.csv("data/main_tweets.csv").then(dataset => {
     line2 += add2;
   };
 
-  const c1 = "M" + scaleX(parseTime("2 February 2021")) + "," + scaleY(62000) + " L" + scaleX(parseTime("2 February 2021")) + "," + scaleY(0);
+  const c1 = "M" + scaleX(parseTime("25 September 2020")) + "," + scaleY(62000) + " L" + scaleX(parseTime("25 September 2020")) + "," + scaleY(0);
+  const c2 = "M" + scaleX(parseTime("8 December 2020")) + "," + scaleY(62000) + " L" + scaleX(parseTime("8 December 2020")) + "," + scaleY(0);
+  const c3 = "M" + scaleX(parseTime("2 February 2021")) + "," + scaleY(62000) + " L" + scaleX(parseTime("2 February 2021")) + "," + scaleY(0);
 
   svg4.append("g")
       .append("path")
       .attr("d",c1)
       .attr("class","vert")
       .on("mouseover", (event, d) => {
-        b4.transition()
+        t1.transition()
           .style("opacity",1)
           .style("left", (event.pageX)+10 + "px")
           .style("top", (event.pageY)+10 + "px")
       })
       .on("mousemove", (event, d) => {
-        b4.style("left", (event.pageX)+10 + "px")
+        t1.style("left", (event.pageX)+10 + "px")
            .style("top", (event.pageY)+10 + "px")
       })
       .on("mouseout", (event, d) => {
-        b4.transition()
+        t1.transition()
            .style("opacity",0)
       });
+  svg4.append("g")
+      .append("path")
+      .attr("d",c2)
+      .attr("class","vert")
+      .on("mouseover", (event, d) => {
+        t2.transition()
+          .style("opacity",1)
+          .style("left", (event.pageX)+10 + "px")
+          .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mousemove", (event, d) => {
+        t2.style("left", (event.pageX)+10 + "px")
+           .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mouseout", (event, d) => {
+        t2.transition()
+           .style("opacity",0)
+      });
+  svg4.append("g")
+      .append("path")
+      .attr("d",c3)
+      .attr("class","vert")
+      .on("mouseover", (event, d) => {
+        t3.transition()
+          .style("opacity",1)
+          .style("left", (event.pageX)+10 + "px")
+          .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mousemove", (event, d) => {
+        t3.style("left", (event.pageX)+10 + "px")
+           .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mouseout", (event, d) => {
+        t3.transition()
+           .style("opacity",0)
+      });
+
   svg4.append("g")
       .append("path")
       .attr("d",line1)
@@ -450,26 +546,103 @@ d3.csv("data/main_tweets.csv").then(dataset => {
       .style("stroke-width","2px")
       .style("stroke",palette[1]);
 
+  svg4.append("rect")
+      .attr("x",scaleX(parseTime("8 August 2020")))
+      .attr("y",h4-m)
+      .attr("width",scaleX(parseTime("1 September 2020")) - scaleX(parseTime("8 August 2020")))
+      .attr("height",15)
+      .attr("fill",n1);
+  svg4.append("rect")
+      .attr("x",scaleX(parseTime("1 September 2020")))
+      .attr("y",h4-m)
+      .attr("width",scaleX(parseTime("1 October 2020")) - scaleX(parseTime("1 September 2020")))
+      .attr("height",15)
+      .attr("fill",n2);
+  svg4.append("rect")
+      .attr("x",scaleX(parseTime("1 October 2020")))
+      .attr("y",h4-m)
+      .attr("width",scaleX(parseTime("1 November 2020")) - scaleX(parseTime("1 October 2020")))
+      .attr("height",15)
+      .attr("fill",n1);
+  svg4.append("rect")
+      .attr("x",scaleX(parseTime("1 November 2020")))
+      .attr("y",h4-m)
+      .attr("width",scaleX(parseTime("1 December 2020")) - scaleX(parseTime("1 November 2020")))
+      .attr("height",15)
+      .attr("fill",n2);
+  svg4.append("rect")
+      .attr("x",scaleX(parseTime("1 December 2020")))
+      .attr("y",h4-m)
+      .attr("width",scaleX(parseTime("1 January 2021")) - scaleX(parseTime("1 December 2020")))
+      .attr("height",15)
+      .attr("fill",n1);
+  svg4.append("rect")
+      .attr("x",scaleX(parseTime("1 January 2021")))
+      .attr("y",h4-m)
+      .attr("width",scaleX(parseTime("1 February 2021")) - scaleX(parseTime("1 January 2021")))
+      .attr("height",15)
+      .attr("fill",n2);
+  svg4.append("rect")
+      .attr("x",scaleX(parseTime("1 February 2021")))
+      .attr("y",h4-m)
+      .attr("width",scaleX(parseTime("1 March 2021")) - scaleX(parseTime("1 February 2021")))
+      .attr("height",15)
+      .attr("fill",n1);
+  svg4.append("rect")
+      .attr("x",scaleX(parseTime("1 March 2021")))
+      .attr("y",h4-m)
+      .attr("width",scaleX(parseTime("19 March 2021")) - scaleX(parseTime("1 March 2021")))
+      .attr("height",15)
+      .attr("fill",n2);
+
+  svg4.append("rect")
+      .attr("x",m)
+      .attr("y",h4-m)
+      .attr("width",w4-(2*m))
+      .attr("height",1);
+
   svg4.append("text")
-      .attr("transform","translate(" + scaleX(parseTime("20 August 2020")) + "," + scaleY(58000) + ")")
-      .attr("text-anchor","left")
-      .attr("class","legend")
-      .text("#bharatbandh")
+      .attr("x",scaleX(parseTime("20 August 2020")))
+      .attr("y",h4-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("August");
   svg4.append("text")
-      .attr("transform","translate(" + scaleX(parseTime("20 August 2020")) + "," + scaleY(55000) + ")")
-      .attr("text-anchor","left")
-      .attr("class","legend")
-      .text("#farmerprotest")
-  svg4.append("g")
-      .append("path")
-      .attr("d","M" + scaleX(parseTime("11 August 2020")) + "," + scaleY(58500) + " L" + scaleX(parseTime("19 August 2020")) + "," + scaleY(58500))
-      .style("stroke-width","4px")
-      .style("stroke",palette[0]);
-  svg4.append("g")
-      .append("path")
-      .attr("d","M" + scaleX(parseTime("11 August 2020")) + "," + scaleY(55500) + " L" + scaleX(parseTime("19 August 2020")) + "," + scaleY(55500))
-      .style("stroke-width","4px")
-      .style("stroke",palette[1]);
+      .attr("x",scaleX(parseTime("16 September 2020")))
+      .attr("y",h4-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("September");
+  svg4.append("text")
+      .attr("x",scaleX(parseTime("16 October 2020")))
+      .attr("y",h4-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("October");
+  svg4.append("text")
+      .attr("x",scaleX(parseTime("16 November 2020")))
+      .attr("y",h4-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("November");
+  svg4.append("text")
+      .attr("x",scaleX(parseTime("17 December 2020")))
+      .attr("y",h4-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("December");
+  svg4.append("text")
+      .attr("x",scaleX(parseTime("17 January 2021")))
+      .attr("y",h4-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("January");
+  svg4.append("text")
+      .attr("x",scaleX(parseTime("15 February 2021")))
+      .attr("y",h4-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("February");
 });
 
 d3.csv("data/volume_compare.csv").then(dataset => {
@@ -489,10 +662,9 @@ d3.csv("data/volume_compare.csv").then(dataset => {
                    .domain([0,0.2])
                    .range([h5-m,m]);
   const bottomAxis = d3.axisBottom().scale(scaleX);
-  const leftAxis = d3.axisLeft().scale(scaleY);
   const palette_m = d3.scaleOrdinal()
                       .domain(["a","b","c","d"])
-                      .range(["#0a8901","#ff9a30","#dfd918","#ab2b23"]);
+                      .range([i1,i2,y,o]);
   const grad = d3.scaleOrdinal()
                       .domain(["a","b","c","d"])
                       .range(["url(#g1)","url(#g2)","url(#g3)","url(#g4)"])
@@ -557,9 +729,6 @@ d3.csv("data/volume_compare.csv").then(dataset => {
   svg5.append("g")
       .attr("transform", "translate(0," + (h5-m) + ")")
       .call(bottomAxis);
-  svg5.append("g")
-      .attr("transform", "translate(" + m + ",0)")
-      .call(leftAxis);
 
   svg5.append("text")
       .attr("transform","translate(" + w5/2 + "," + (m-10) + ")")
@@ -590,10 +759,9 @@ d3.csv("data/tweets_compare.csv").then(dataset => {
                    .domain([0,250000])
                    .range([h6-m,m]);
   const bottomAxis = d3.axisBottom().scale(scaleX);
-  const leftAxis = d3.axisLeft().scale(scaleY);
   const palette_m = d3.scaleOrdinal()
                       .domain(["a","b","c","d"])
-                      .range(["#0a8901","#ff9a30","#dfd918","#ab2b23"]);
+                      .range([i1,i2,y,o]);
 
   const b6 = d3.select("#b6")
   const pt3 = d3.select("#pt3")
@@ -628,9 +796,6 @@ d3.csv("data/tweets_compare.csv").then(dataset => {
   svg6.append("g")
       .attr("transform", "translate(0," + (h6-m) + ")")
       .call(bottomAxis);
-  svg6.append("g")
-      .attr("transform", "translate(" + m + ",0)")
-      .call(leftAxis);
 
   svg6.append("text")
       .attr("transform","translate(" + w6/2 + "," + (m-10) + ")")
@@ -655,7 +820,7 @@ d3.csv("data/crops.csv").then(dataset => {
   const cArcs = pie(number);
   var cPalette = d3.scaleOrdinal()
                    .domain(["a","b","c","d"])
-                   .range(["#0a8901","#ff9a30","#000089","#CC3232"])
+                   .range([i1,i2,i3,i4])
   const ttsm = d3.select("#ttsm")
 
   sm.append("g")
@@ -689,5 +854,5 @@ d3.csv("data/crops.csv").then(dataset => {
       .attr("transform","translate(" + w7/2 + "," + m + ")")
       .attr("text-anchor","middle")
       .attr("class","ctitle")
-      .text("crops subsidized by the msp system");
+      .text("what does the msp system support?");
 });

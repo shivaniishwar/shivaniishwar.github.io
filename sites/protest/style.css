@@ -2,6 +2,11 @@ h1 {
   font-weight: bold;
 }
 
+a {
+  color: black;
+  text-decoration: underline;
+}
+
 .st {
   font-weight: bold;
   text-transform: uppercase;
@@ -18,12 +23,12 @@ svg {
   color: black;
 }
 
-.pie {
+.bar {
   stroke: white;
   stroke-width: 1px;
 }
 
-.pie:hover {
+.bar:hover {
   opacity: 70%;
 }
 
@@ -83,7 +88,15 @@ svg {
   opacity: 70%;
 }
 
-.legend {
-  font-size: 0.7rem;
-  font-weight: bold;
+.tweet {
+  position: absolute;
+  opacity: 0;
+}
+
+#u1 {
+  background: #7C9D53;
+}
+
+#u2 {
+  background: #D16014;
 }
