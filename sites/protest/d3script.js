@@ -451,7 +451,7 @@ d3.csv("data/main_tweets.csv").then(dataset => {
       .attr("transform","translate(" + w4/2 + "," + (m-10) + ")")
       .attr("text-anchor","middle")
       .attr("class","ctitle")
-      .text("tweets about the farmers' protests");
+      .text("meanwhile on twitter...");
 
   const scaleX = d3.scaleLinear()
                    .domain([parseTime("8 August 2020"),parseTime("19 March 2021")])
@@ -659,7 +659,7 @@ d3.csv("data/volume_compare.csv").then(dataset => {
                    .range([m,w5-m])
                    .paddingInner(0.1);
   const scaleY = d3.scaleLinear()
-                   .domain([0,0.2])
+                   .domain([0,0.19])
                    .range([h5-m,m]);
   const bottomAxis = d3.axisBottom().scale(scaleX);
   const palette_m = d3.scaleOrdinal()
@@ -734,12 +734,7 @@ d3.csv("data/volume_compare.csv").then(dataset => {
       .attr("transform","translate(" + w5/2 + "," + (m-10) + ")")
       .attr("text-anchor","middle")
       .attr("class","ctitle")
-      .text("protest movement participation");
-  svg5.append("text")
-      .attr("transform","translate(" + w5/2 + "," + (m+10) + ")")
-      .attr("text-anchor","middle")
-      .attr("class","ctitle")
-      .text("as a percentage of population");
+      .text("who showed up?");
 });
 
 d3.csv("data/tweets_compare.csv").then(dataset => {
@@ -801,7 +796,7 @@ d3.csv("data/tweets_compare.csv").then(dataset => {
       .attr("transform","translate(" + w6/2 + "," + (m-10) + ")")
       .attr("text-anchor","middle")
       .attr("class","ctitle")
-      .text("number of tweets for each protest movement");
+      .text("who spoke out?");
 });
 
 d3.csv("data/crops.csv").then(dataset => {

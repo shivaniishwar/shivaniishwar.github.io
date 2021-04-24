@@ -2,11 +2,6 @@ h1 {
   font-weight: bold;
 }
 
-a {
-  color: black;
-  text-decoration: underline;
-}
-
 .st {
   font-weight: bold;
   text-transform: uppercase;
@@ -93,10 +88,22 @@ svg {
   opacity: 0;
 }
 
-#u1 {
-  background: #7C9D53;
+.u1 {
+  border: 3px solid #7C9D53;
 }
 
-#u2 {
-  background: #D16014;
+.u2 {
+  border: 3px solid #D16014;
+}
+
+.u3 {
+  border: 3px solid #2E5266;
+}
+
+.u4 {
+  border: 3px solid #6C0E23;
+}
+
+.u5 {
+  border: 3px solid #D4CB68;
 }
