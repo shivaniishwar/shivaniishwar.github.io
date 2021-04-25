@@ -21,7 +21,7 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
                       .range([i1,i2,n1]);
   const scaleX = d3.scaleLinear()
                    .domain([0,1])
-                   .range([m, w1/2-m]);
+                   .range([m, w1/2-(2*m)]);
   const scaleY = d3.scaleBand()
                    .domain(d3.range(dataset.length))
                    .range([(3*m), h1-m]);
@@ -64,6 +64,19 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
        tt1.transition()
           .style("opacity",0)
      });
+
+  svg1.append("image")
+      .attr("x",w1/2-m)
+      .attr("y",scaleY(0)+m)
+      .attr("width",100)
+      .attr("height",100)
+      .attr("href","img/in.png");
+  svg1.append("image")
+      .attr("x",w1/2-m)
+      .attr("y",scaleY(1)+m)
+      .attr("width",100)
+      .attr("height",100)
+      .attr("href","img/us.png");
 
   svg1.append("circle")
       .attr("cx",w1/5*3)
