@@ -507,7 +507,9 @@ d3.csv("data/main_tweets.csv").then(dataset => {
       })
       .on("mouseout", (event, d) => {
         t1.transition()
-           .style("opacity",0)
+          .style("opacity",0)
+        t1.style("left", "-1000px")
+          .style("top", "-1000px")
       });
   svg4.append("g")
       .append("path")
@@ -525,7 +527,9 @@ d3.csv("data/main_tweets.csv").then(dataset => {
       })
       .on("mouseout", (event, d) => {
         t2.transition()
-           .style("opacity",0)
+          .style("opacity",0)
+        t2.style("left", "-1000px")
+          .style("top", "-1000px")
       });
   svg4.append("g")
       .append("path")
@@ -543,7 +547,9 @@ d3.csv("data/main_tweets.csv").then(dataset => {
       })
       .on("mouseout", (event, d) => {
         t3.transition()
-           .style("opacity",0)
+          .style("opacity",0)
+        t3.style("left", "-1000px")
+          .style("top", "-1000px")
       });
 
   svg4.append("g")
@@ -748,6 +754,11 @@ d3.csv("data/volume_compare.csv").then(dataset => {
       .attr("text-anchor","middle")
       .attr("class","ctitle")
       .text("who showed up?");
+  svg5.append("text")
+      .attr("transform","translate(" + w5/2 + "," + (m+5) + ")")
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("(protesters as % of population)")
 });
 
 d3.csv("data/tweets_compare.csv").then(dataset => {
@@ -810,6 +821,11 @@ d3.csv("data/tweets_compare.csv").then(dataset => {
       .attr("text-anchor","middle")
       .attr("class","ctitle")
       .text("who spoke out?");
+  svg6.append("text")
+      .attr("transform","translate(" + w6/2 + "," + (m+5) + ")")
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("(tweets per month)")
 });
 
 d3.csv("data/crops.csv").then(dataset => {

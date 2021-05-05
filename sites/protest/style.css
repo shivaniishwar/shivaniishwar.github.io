@@ -2,6 +2,16 @@ h1 {
   font-weight: bold;
 }
 
+a {
+  color: #2E5266;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #2E5266;
+  font-weight: bold;
+}
+
 .st {
   font-weight: bold;
   text-transform: uppercase;
@@ -86,24 +96,42 @@ svg {
 .tweet {
   position: absolute;
   opacity: 0;
+  left: -1000px;
+  top: -1000px;
+  max-width: 300px;
 }
 
 .u1 {
-  border: 3px solid #7C9D53;
+  background: #7C9D53;
+  color: white;
+  font-weight: bold;
+  border: 2px solid #7C9D53;
 }
 
 .u2 {
-  border: 3px solid #D16014;
+  background: #D16014;
+  color: white;
+  font-weight: bold;
+  border: 2px solid #D16014;
 }
 
 .u3 {
-  border: 3px solid #2E5266;
+  background: #2E5266;
+  color: white;
+  font-weight: bold;
+  border: 2px solid #2E5266;
 }
 
 .u4 {
-  border: 3px solid #6C0E23;
+  background: #6C0E23;
+  color: white;
+  font-weight: bold;
+  border: 2px solid #6C0E23;
 }
 
 .u5 {
-  border: 3px solid #D4CB68;
+  background: #D4CB68;
+  color: white;
+  font-weight: bold;
+  border: 2px solid #D4CB68;
 }
