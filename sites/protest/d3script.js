@@ -68,21 +68,22 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
   svg1.append("image")
       .attr("x",w1/2-m)
       .attr("y",scaleY(0)+m)
-      .attr("width",100)
-      .attr("height",100)
+      .attr("width",90)
+      .attr("height",60)
       .attr("href","img/in.png");
   svg1.append("image")
       .attr("x",w1/2-m)
       .attr("y",scaleY(1)+m)
-      .attr("width",100)
-      .attr("height",100)
+      .attr("width",90)
+      .attr("height",60)
       .attr("href","img/us.png");
 
   svg1.append("circle")
       .attr("cx",w1/5*3)
       .attr("cy",scaleY(0))
       .attr("r",5)
-      .attr("fill",i1);
+      .attr("fill",i3)
+      .attr("style","opacity: 75%;");
   svg1.append("text")
       .attr("x",w1/5*3 + 10)
       .attr("y",scaleY(0) + 4)
@@ -95,7 +96,8 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
         .attr("cx",w1/5*3 + (15*i))
         .attr("cy",scaleY(0) + h1/8)
         .attr("r",5)
-        .attr("fill",i1)
+        .attr("fill",i3)
+        .attr("style","opacity: 75%;")
         .on("mouseover", (event, d) => {
           tt1.transition()
              .style("opacity",1)
@@ -119,7 +121,8 @@ d3.csv("data/india_vs_us.csv").then(dataset => {
         .attr("cx",w1/5*3 + (15*(i%row)))
         .attr("cy",scaleY(1) - h1/16 + (15*Math.floor(i/row)))
         .attr("r",5)
-        .attr("fill",i1)
+        .attr("fill",i3)
+        .attr("style","opacity: 75%;")
         .on("mouseover", (event, d) => {
           tt1.transition()
              .style("opacity",1)
@@ -170,7 +173,7 @@ d3.csv("data/protest_count.csv").then(dataset => {
       .text("a timeline of the farmers' movement");
 
   const scaleX = d3.scaleLinear()
-                   .domain([parseTime("8 August 2020"),parseTime("13 February 2021")])
+                   .domain([parseTime("8 August 2020"),parseTime("1 May 2021")])
                    .range([m,w2-m]);
   const scaleY = d3.scaleLinear()
                    .domain([0,260])
@@ -183,6 +186,7 @@ d3.csv("data/protest_count.csv").then(dataset => {
   const b1 = d3.select("#b1");
   const b2 = d3.select("#b2");
   const b3 = d3.select("#b3");
+  const b4 = d3.select("#bn");
 
   var line1 = "M" + scaleX(parseTime(dataset[0]["Date"])) + "," + scaleY(dataset[0]["Events"])
 
@@ -194,6 +198,7 @@ d3.csv("data/protest_count.csv").then(dataset => {
   const v1 = "M" + scaleX(parseTime("25 September 2020")) + "," + scaleY(260) + " L" + scaleX(parseTime("25 September 2020")) + "," + scaleY(0)
   const v2 = "M" + scaleX(parseTime("8 December 2020")) + "," + scaleY(260) + " L" + scaleX(parseTime("8 December 2020")) + "," + scaleY(0)
   const v3 = "M" + scaleX(parseTime("6 February 2021")) + "," + scaleY(260) + " L" + scaleX(parseTime("6 February 2021")) + "," + scaleY(0)
+  const v4 = "M" + scaleX(parseTime("26 March 2021")) + "," + scaleY(260) + " L" + scaleX(parseTime("26 March 2021")) + "," + scaleY(0)
 
   svg2.append("rect")
       .attr("x",scaleX(parseTime("8 August 2020")))
@@ -234,7 +239,19 @@ d3.csv("data/protest_count.csv").then(dataset => {
   svg2.append("rect")
       .attr("x",scaleX(parseTime("1 February 2021")))
       .attr("y",h2-m)
-      .attr("width",scaleX(parseTime("13 February 2021")) - scaleX(parseTime("1 February 2021")))
+      .attr("width",scaleX(parseTime("1 March 2021")) - scaleX(parseTime("1 February 2021")))
+      .attr("height",15)
+      .attr("fill",n1);
+  svg2.append("rect")
+      .attr("x",scaleX(parseTime("1 March 2021")))
+      .attr("y",h2-m)
+      .attr("width",scaleX(parseTime("1 April 2021")) - scaleX(parseTime("1 March 2021")))
+      .attr("height",15)
+      .attr("fill",n2);
+  svg2.append("rect")
+      .attr("x",scaleX(parseTime("1 April 2021")))
+      .attr("y",h2-m)
+      .attr("width",scaleX(parseTime("1 May 2021")) - scaleX(parseTime("1 April 2021")))
       .attr("height",15)
       .attr("fill",n1);
 
@@ -280,6 +297,24 @@ d3.csv("data/protest_count.csv").then(dataset => {
       .attr("text-anchor","middle")
       .attr("class","cstitle")
       .text("January");
+  svg2.append("text")
+      .attr("x",scaleX(parseTime("15 February 2021")))
+      .attr("y",h2-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("February");
+  svg2.append("text")
+      .attr("x",scaleX(parseTime("17 March 2021")))
+      .attr("y",h2-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("March");
+  svg2.append("text")
+      .attr("x",scaleX(parseTime("16 April 2021")))
+      .attr("y",h2-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("April");
 
   svg2.append("g")
       .append("path")
@@ -335,6 +370,25 @@ d3.csv("data/protest_count.csv").then(dataset => {
       })
       .on("mouseout", (event, d) => {
         b3.transition()
+           .style("opacity",0)
+      });
+
+  svg2.append("g")
+      .append("path")
+      .attr("d",v4)
+      .attr("class","vert")
+      .on("mouseover", (event, d) => {
+        b4.transition()
+          .style("opacity",1)
+          .style("left", (event.pageX)+10 + "px")
+          .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mousemove", (event, d) => {
+        b4.style("left", (event.pageX)+10 + "px")
+           .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mouseout", (event, d) => {
+        b4.transition()
            .style("opacity",0)
       });
 
@@ -467,7 +521,7 @@ d3.csv("data/main_tweets.csv").then(dataset => {
       .text("meanwhile on twitter...");
 
   const scaleX = d3.scaleLinear()
-                   .domain([parseTime("8 August 2020"),parseTime("19 March 2021")])
+                   .domain([parseTime("8 August 2020"),parseTime("1 May 2021")])
                    .range([m,w4-m]);
   const scaleY = d3.scaleLinear()
                    .domain([0,62000])
@@ -476,6 +530,7 @@ d3.csv("data/main_tweets.csv").then(dataset => {
   const t1 = d3.select("#t1");
   const t2 = d3.select("#t2");
   const t3 = d3.select("#t3");
+  const t4 = d3.select("#t4");
 
   var line1 = "M" + scaleX(parseTime(dataset[0]["Date"])) + "," + scaleY(dataset[0]["BB"])
   var line2 = "M" + scaleX(parseTime(dataset[0]["Date"])) + "," + scaleY(dataset[0]["FP"])
@@ -490,6 +545,7 @@ d3.csv("data/main_tweets.csv").then(dataset => {
   const c1 = "M" + scaleX(parseTime("25 September 2020")) + "," + scaleY(62000) + " L" + scaleX(parseTime("25 September 2020")) + "," + scaleY(0);
   const c2 = "M" + scaleX(parseTime("8 December 2020")) + "," + scaleY(62000) + " L" + scaleX(parseTime("8 December 2020")) + "," + scaleY(0);
   const c3 = "M" + scaleX(parseTime("2 February 2021")) + "," + scaleY(62000) + " L" + scaleX(parseTime("2 February 2021")) + "," + scaleY(0);
+  const c4 = "M" + scaleX(parseTime("26 March 2021")) + "," + scaleY(62000) + " L" + scaleX(parseTime("26 March 2021")) + "," + scaleY(0);
 
   svg4.append("g")
       .append("path")
@@ -551,6 +607,26 @@ d3.csv("data/main_tweets.csv").then(dataset => {
         t3.style("left", "-1000px")
           .style("top", "-1000px")
       });
+  svg4.append("g")
+      .append("path")
+      .attr("d",c4)
+      .attr("class","vert")
+      .on("mouseover", (event, d) => {
+        t4.transition()
+          .style("opacity",1)
+          .style("left", (event.pageX)+10 + "px")
+          .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mousemove", (event, d) => {
+        t4.style("left", (event.pageX)+10 + "px")
+           .style("top", (event.pageY)+10 + "px")
+      })
+      .on("mouseout", (event, d) => {
+        t4.transition()
+          .style("opacity",0)
+        t4.style("left", "-1000px")
+          .style("top", "-1000px")
+      });
 
   svg4.append("g")
       .append("path")
@@ -610,9 +686,15 @@ d3.csv("data/main_tweets.csv").then(dataset => {
   svg4.append("rect")
       .attr("x",scaleX(parseTime("1 March 2021")))
       .attr("y",h4-m)
-      .attr("width",scaleX(parseTime("19 March 2021")) - scaleX(parseTime("1 March 2021")))
+      .attr("width",scaleX(parseTime("1 April 2021")) - scaleX(parseTime("1 March 2021")))
       .attr("height",15)
       .attr("fill",n2);
+  svg4.append("rect")
+      .attr("x",scaleX(parseTime("1 April 2021")))
+      .attr("y",h4-m)
+      .attr("width",scaleX(parseTime("1 May 2021")) - scaleX(parseTime("1 April 2021")))
+      .attr("height",15)
+      .attr("fill",n1);
 
   svg4.append("rect")
       .attr("x",m)
@@ -662,6 +744,18 @@ d3.csv("data/main_tweets.csv").then(dataset => {
       .attr("text-anchor","middle")
       .attr("class","cstitle")
       .text("February");
+  svg4.append("text")
+      .attr("x",scaleX(parseTime("17 March 2021")))
+      .attr("y",h4-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("March");
+  svg4.append("text")
+      .attr("x",scaleX(parseTime("16 April 2021")))
+      .attr("y",h4-m+12)
+      .attr("text-anchor","middle")
+      .attr("class","cstitle")
+      .text("April");
 });
 
 d3.csv("data/volume_compare.csv").then(dataset => {
